@@ -61,6 +61,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector("a-scene");
+        const modelEl = document.querySelector("#model");
+        let isTargetDetected = false;
 
         function randomChoice(arr){
           return arr[Math.floor(Math.random()*arr.length)];
