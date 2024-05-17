@@ -68,26 +68,40 @@
           return arr[Math.floor(Math.random()*arr.length)];
         }
 
+        // function loadRandomModel() {
+        //   console.log("Loading random model...");
+        //   const models = ["#Megaman", "#george_bread"];
+        //   const randomModel = randomChoice(models)
+        //   console.log("Selected Model: ", randomModel);
+        //   modelEl.setAttribute("src", randomModel);
+          
+        // }
+        // // Listen for the mindar-target-detected event
+        // exampleTarget.addEventListener("targetFound", event => {
+        //   console.log("Target detected:");
+        //   // Load a random model when target detected
+        //   loadRandomModel();
+        // });
         function loadRandomModel() {
           console.log("Loading random model...");
           const models = ["#Megaman", "#george_bread"];
           const randomModel = randomChoice(models)
           console.log("Selected Model: ", randomModel);
+
+          // Get the THREE.js object of the model
+          const object3D = modelEl.object3D;
+
+          // Remove all children of the object
+          while (object3D.children.length > 0) {
+            object3D.remove(object3D.children[0]);
+          }
+
+          // Load the new model
           modelEl.setAttribute("src", randomModel);
-          
+
+          // Force A-Frame to update the object
+          modelEl.load();
         }
-        
-        // sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
-        //   console.log("Scene loaded event listener triggered!");
-        //   loadRandomModel();
-        // });
-        // Listen for the mindar-target-detected event
-        exampleTarget.addEventListener("targetFound", event => {
-          console.log("Target detected:");
-          // Load a random model when target detected
-          loadRandomModel();
-        });
-        
       });
     </script>
   </body>
