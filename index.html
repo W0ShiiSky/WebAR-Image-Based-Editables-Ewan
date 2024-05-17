@@ -79,7 +79,7 @@
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
           console.log("Loading random model...");
-          const models = ["#Megaman", "#george_bread"];
+          const models = ["Megaman", "george_bread"];
           // let randomModel = randomChoice(models)
           // randomModel = randomChoice(models);
           randomModel = models[Math.floor(Math.random() * models.length)];
@@ -88,9 +88,9 @@
           modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
           modelEl.setAttribute("src", randomModel);
 
-          if (randomModel === "#Megaman") {
+          if (randomModel === "Megaman") {
             modelInfoEl.textContent = "Megaman rendered";
-          } else if (randomModel === "#george_bread") {
+          } else if (randomModel === "george_bread") {
             modelInfoEl.textContent = "George_bread rendered";
           }
         });
