@@ -72,7 +72,22 @@
           const randomModel = randomChoice(models)
           console.log("Selected Model: ", randomModel);
           const modelEl = document.querySelector("#model");
-          modelEl.setAttribute("src", randomModel);
+          // modelEl.setAttribute("src", randomModel);
+
+          // Remove the existing model entity
+          modelEl.parentNode.removeChild(modelEl);
+
+          // Create a new model entity with the selected model source
+          const newModelEl = document.createElement("a-gltf-model");
+          newModelEl.setAttribute("id", "model");
+          newModelEl.setAttribute("rotation", "0 0 0");
+          newModelEl.setAttribute("position", "0 -0.5 0");
+          newModelEl.setAttribute("scale", "3.5 3.5 3.5");
+          newModelEl.setAttribute("src", randomModel);
+          newModelEl.setAttribute("animation-mixer", "");
+
+          // Append the new model entity to the scene
+          sceneEl.appendChild(newModelEl);
         }
 
         sceneEl.addEventListener("loaded", function() {
