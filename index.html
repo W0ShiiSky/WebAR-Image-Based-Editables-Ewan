@@ -78,7 +78,10 @@
 
         }
 
-        sceneEl.addEventListener("loaded", loadRandomModel);
+        sceneEl.addEventListener("loaded", function() {
+          console.log("Scene loaded event listener triggered!");
+          loadRandomModel();
+        });
 
         document.querySelector("#scanning-overlay").addEventListener("rescan", loadRandomModel);
       });
