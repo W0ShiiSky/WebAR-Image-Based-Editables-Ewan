@@ -85,7 +85,7 @@
           randomModel = models[Math.floor(Math.random() * models.length)];
           console.log("Selected Model: ", randomModel);
 
-          modelEl.setAttribute("gltf-model", randomModel);
+          modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
           modelEl.setAttribute("src", randomModel);
 
           if (randomModel === "#Megaman") {
