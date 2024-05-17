@@ -66,22 +66,58 @@
           return arr[Math.floor(Math.random()*arr.length)];
         }
 
-        function loadRandomModel() {
-          console.log("Loading random model...");
-          const models = ["#Megaman", "#george_bread"];
-          const randomModel = randomChoice(models)
-          console.log("Selected Model: ", randomModel);
-          const modelEl = document.querySelector("#model");
-          modelEl.setAttribute('data-src', randomModel);
-          modelEl.setAttribute("src", randomModel);
+        // function loadRandomModel() {
+        //   console.log("Loading random model...");
+        //   const models = ["#Megaman", "#george_bread"];
+        //   const randomModel = randomChoice(models)
+        //   console.log("Selected Model: ", randomModel);
+        //   const modelEl = document.querySelector("#model");
+        //   modelEl.setAttribute('data-src', randomModel);
+        //   modelEl.setAttribute("src", randomModel);
           
-        }
+        // }
         
-        sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
-          console.log("Scene loaded event listener triggered!");
-          loadRandomModel();
-        });
+        // sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
+        //   console.log("Scene loaded event listener triggered!");
+        //   loadRandomModel();
+        // });
         
+        sceneEl.addEventListener('loaded', function () {
+            console.log("Scene loaded!");
+
+            sceneEl.addEventListener('mindar-image-target-found', function (event) {
+              loadRandomModel();
+            });
+          });
+
+          function loadRandomModel() {
+            console.log("Loading random model...");
+            const models = ["#Megaman", "#george_bread"];
+            const randomModel = randomChoice(models);
+            console.log("Selected Model: ", randomModel);
+
+            const sceneEl = document.querySelector("a-scene");
+            const modelEl = document.querySelector("#model");
+
+            // Remove existing model
+            if (modelEl) {
+              console.log("Removing existing model...");
+              sceneEl.removeChild(modelEl);
+            }
+
+            // Create new model with updated source
+            const newModelEl = document.createElement('a-gltf-model');
+            newModelEl.setAttribute('id', 'model');
+            newModelEl.setAttribute('rotation', '0 0 0');
+            newModelEl.setAttribute('position', '0 -0.5 0');
+            newModelEl.setAttribute('scale', '3.5 3.5 3.5');
+            newModelEl.setAttribute('animation-mixer', '');
+            newModelEl.setAttribute('src', randomModel);
+
+            // Add new model to the scene
+            console.log("Adding new model...", randomModel);
+            sceneEl.appendChild(newModelEl);
+          }
       });
     </script>
   </body>
