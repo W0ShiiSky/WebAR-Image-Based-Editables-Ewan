@@ -86,11 +86,11 @@
 
       //     modelEl.setAttribute("src", randomModel);
 
-      //     if (randomModel === "#Megaman") {
-      //       modelInfoEl.textContent = "Megaman rendered";
-      //     } else if (randomModel === "#george_bread") {
-      //       modelInfoEl.textContent = "George_bread rendered";
-      //     }
+          // if (randomModel === "#Megaman") {
+          //   modelInfoEl.textContent = "Megaman rendered";
+          // } else if (randomModel === "#george_bread") {
+          //   modelInfoEl.textContent = "George_bread rendered";
+          // }
       //   });
       // });
           document.addEventListener("DOMContentLoaded", function () {
@@ -106,6 +106,13 @@
             const modelEl = document.querySelector("#model");
             // modelEl.setAttribute("gltf-model", randomModel);
             modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
+
+            if (`./static/3D-file/glb/${randomModel}.glb` === "#Megaman") {
+              modelInfoEl.textContent = "Megaman rendered";
+            } else if (`./static/3D-file/glb/${randomModel}.glb` === "#george_bread") {
+              modelInfoEl.textContent = "George_bread rendered";
+            }
+
           });
         });
     </script>
