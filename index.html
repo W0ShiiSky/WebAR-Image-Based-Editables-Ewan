@@ -61,16 +61,21 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector("a-scene");
+        
         function randomChoice(arr){
           return arr[Math.floor(Math.random()*arr.length)];
         }
 
-        sceneEl.addEventListener("loaded", function () {
+        function loadRandomModel() {
           const models = ["#Megaman", "#george_bread"];
           const randomModel = randomChoice(models)
           const modelEl = document.querySelector("#model");
           modelEl.setAttribute("src", randomModel);
-        });
+        }
+
+        sceneEl.addEventListener("loaded", loadRandomModel);
+
+        document.querySelector("#scanning-overlay").addEventListener("rescan", loadRandomModel);
       });
     </script>
   </body>
