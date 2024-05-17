@@ -40,6 +40,10 @@
 
     </div>
 
+    <div id="text-box" style="position: absolute; top: 10px; left: 10px; background-color: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; font-family: 'Roboto', sans-serif;">
+      <p id="model-info" style="margin: 0; color: black;"></p>
+    </div>
+
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
       <a-assets>
@@ -63,6 +67,7 @@
         const sceneEl = document.querySelector("a-scene");
         const modelEl = document.querySelector("#model");
         const exampleTarget = document.querySelector("#example-target");
+        const modelInfoEl = document.getElementById("model-info");
 
         function randomChoice(arr){
           return arr[Math.floor(Math.random()*arr.length)];
@@ -76,6 +81,15 @@
           modelEl.setAttribute("src", randomModel);
           
         }
+
+
+        if (randomModel === "#Megaman") {
+            modelInfoEl.textContent = "Megaman rendered";
+          } else if (randomModel === "#george_bread") {
+            modelInfoEl.textContent = "George_bread rendered";
+          }
+
+
         // Listen for the mindar-target-detected event
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
