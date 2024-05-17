@@ -78,11 +78,17 @@
           const randomModel = models[Math.floor(Math.random() * models.length)];
           console.log("Selected Model: ", randomModel);
 
-          modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
+          // modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
 
           if (randomModel === "Megaman") {
+            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
+            modelEl.setAttribute("position", "0 -0.5 0");
+            modelEl.setAttribute("scale", "3.5 3.5 3.5");
             modelInfoEl.textContent = "Megaman rendered";
           } else if (randomModel === "spider_man") {
+            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
+            modelEl.setAttribute("position", "0 -3 -9");
+            modelEl.setAttribute("scale", "2 2 2");
             modelInfoEl.textContent = "Spiderman rendered";
           }
         });
