@@ -73,24 +73,21 @@
           console.log("Selected Model: ", randomModel);
           const modelEl = document.querySelector("#model");
           modelEl.setAttribute("src", randomModel);
+          reenterSceneE1();
+        }
+
+        function reenterSceneE1() {
+          sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
+          console.log("Re-entering sceneE1 code");
+          loadRandomModel();
+          });
         }
         
-        // sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
-        //   console.log("Scene loaded event listener triggered!");
-        //   loadRandomModel();
-        // });
-        
-        // Listen for MindAR target detected event
-        document.addEventListener('mindar-target-detected', function (event) {
-          console.log('Target detected:', event.detail.name);
-          // Load random model when target detected
+        sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
+          console.log("Scene loaded event listener triggered!");
           loadRandomModel();
         });
-
-        sceneEl.addEventListener("loaded", function() {
-          console.log("Scene loaded event listener triggered!");
-        });
-
+        
       });
     </script>
   </body>
