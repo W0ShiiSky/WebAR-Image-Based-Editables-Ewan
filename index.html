@@ -81,9 +81,11 @@
           console.log("Loading random model...");
           const models = ["#Megaman", "#george_bread"];
           // let randomModel = randomChoice(models)
-          randomModel = randomChoice(models);
+          // randomModel = randomChoice(models);
+          randomModel = models[Math.floor(Math.random() * models.length)];
           console.log("Selected Model: ", randomModel);
 
+          modelEl.setAttribute("gltf-model", randomModel);
           modelEl.setAttribute("src", randomModel);
 
           if (randomModel === "#Megaman") {
