@@ -63,60 +63,62 @@
 
     </a-scene>
     <script>
-      // document.addEventListener("DOMContentLoaded", function () {
-      //   const sceneEl = document.querySelector("a-scene");
-      //   const modelEl = document.querySelector("#model");
-      //   const exampleTarget = document.querySelector("#example-target");
-      //   const modelInfoEl = document.getElementById("model-info");
-      //   let randomModel;
+      document.addEventListener("DOMContentLoaded", function () {
+        const sceneEl = document.querySelector("a-scene");
+        const modelEl = document.querySelector("#model");
+        const exampleTarget = document.querySelector("#example-target");
+        const modelInfoEl = document.getElementById("model-info");
+        let randomModel;
         
 
-      //   function randomChoice(arr){
-      //     return arr[Math.floor(Math.random()*arr.length)];
-      //   }
+        function randomChoice(arr){
+          return arr[Math.floor(Math.random()*arr.length)];
+        }
 
-      //   // Listen for the mindar-target-detected event
-      //   exampleTarget.addEventListener("targetFound", event => {
-      //     console.log("Target detected:");
-      //     console.log("Loading random model...");
-      //     const models = ["#Megaman", "#george_bread"];
-      //     // let randomModel = randomChoice(models)
-      //     randomModel = randomChoice(models);
-      //     console.log("Selected Model: ", randomModel);
+        // Listen for the mindar-target-detected event
+        exampleTarget.addEventListener("targetFound", event => {
+          console.log("Target detected:");
+          console.log("Loading random model...");
+          const models = ["#Megaman", "#george_bread"];
+          // let randomModel = randomChoice(models)
+          randomModel = randomChoice(models);
+          console.log("Selected Model: ", randomModel);
 
-      //     modelEl.setAttribute("src", randomModel);
+          modelEl.setAttribute("src", randomModel);
 
-          // if (randomModel === "#Megaman") {
-          //   modelInfoEl.textContent = "Megaman rendered";
-          // } else if (randomModel === "#george_bread") {
-          //   modelInfoEl.textContent = "George_bread rendered";
-          // }
-      //   });
-      // });
-          document.addEventListener("DOMContentLoaded", function () {
-          // const modelEl = document.querySelector("#model");
-          const exampleTarget = document.querySelector("#example-target");
-          const models = ["Megaman", "george_bread"];
-          const modelInfoEl = document.getElementById("model-info");
-
-          exampleTarget.addEventListener("targetFound", event => {
-            console.log("Target detected. Loading random model...");
-            const randomModel = models[Math.floor(Math.random() * models.length)];
-            console.log("Selected Model: ", randomModel);
-
-            const modelEl = document.querySelector("#model");
-            // modelEl.setAttribute("gltf-model", randomModel);
-            modelEl.setAttribute("gltf-model", randomModel);
-            modelEl.setAttribute("src", randomModel);
-
-            if (randomModel === "#Megaman") {
-              modelInfoEl.textContent = "Megaman rendered";
-            } else if (randomModel === "#george_bread") {
-              modelInfoEl.textContent = "George_bread rendered";
-            }
-
-          });
+          if (randomModel === "#Megaman") {
+            modelInfoEl.textContent = "Megaman rendered";
+          } else if (randomModel === "#george_bread") {
+            modelInfoEl.textContent = "George_bread rendered";
+          }
         });
+      });
+
+
+        //   document.addEventListener("DOMContentLoaded", function () {
+        //   // const modelEl = document.querySelector("#model");
+        //   const exampleTarget = document.querySelector("#example-target");
+        //   const models = ["Megaman", "george_bread"];
+        //   const modelInfoEl = document.getElementById("model-info");
+
+        //   exampleTarget.addEventListener("targetFound", event => {
+        //     console.log("Target detected. Loading random model...");
+        //     const randomModel = models[Math.floor(Math.random() * models.length)];
+        //     console.log("Selected Model: ", randomModel);
+
+        //     const modelEl = document.querySelector("#model");
+        //     // modelEl.setAttribute("gltf-model", randomModel);
+        //     modelEl.setAttribute("gltf-model", randomModel);
+        //     modelEl.setAttribute("src", randomModel);
+
+        //     if (randomModel === "#Megaman") {
+        //       modelInfoEl.textContent = "Megaman rendered";
+        //     } else if (randomModel === "#george_bread") {
+        //       modelInfoEl.textContent = "George_bread rendered";
+        //     }
+
+        //   });
+        // });
     </script>
   </body>
 </html>
