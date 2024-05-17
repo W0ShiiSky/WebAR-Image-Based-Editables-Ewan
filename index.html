@@ -94,7 +94,7 @@
       //   });
       // });
           document.addEventListener("DOMContentLoaded", function () {
-          const modelEl = document.querySelector("#model");
+          // const modelEl = document.querySelector("#model");
           const exampleTarget = document.querySelector("#example-target");
           const models = ["#Megaman", "#george_bread"];
 
@@ -102,6 +102,8 @@
             console.log("Target detected. Loading random model...");
             const randomModel = models[Math.floor(Math.random() * models.length)];
             console.log("Selected Model: ", randomModel);
+              
+            const modelEl = document.querySelector("#model");
             modelEl.setAttribute("gltf-model", randomModel);
           });
         });
