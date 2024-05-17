@@ -83,6 +83,9 @@
           // let randomModel = randomChoice(models)
           randomModel = randomChoice(models);
           console.log("Selected Model: ", randomModel);
+
+          const assets = document.getElementById("assets");
+          assets.addEventListener("loaded", () => {
           modelEl.setAttribute("src", randomModel);
 
           if (randomModel === "#Megaman") {
@@ -91,7 +94,7 @@
             modelInfoEl.textContent = "George_bread rendered";
           }
         });
-        
+      });
       });
     </script>
   </body>
