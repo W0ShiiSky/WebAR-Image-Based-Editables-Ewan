@@ -68,6 +68,7 @@
         const modelEl = document.querySelector("#model");
         const exampleTarget = document.querySelector("#example-target");
         const modelInfoEl = document.getElementById("model-info");
+        let randomModel = randomChoice(models)
         
 
         function randomChoice(arr){
@@ -79,7 +80,7 @@
           console.log("Target detected:");
           console.log("Loading random model...");
           const models = ["#Megaman", "#george_bread"];
-          let randomModel = randomChoice(models)
+          // let randomModel = randomChoice(models)
           console.log("Selected Model: ", randomModel);
           modelEl.setAttribute("src", randomModel);
 
