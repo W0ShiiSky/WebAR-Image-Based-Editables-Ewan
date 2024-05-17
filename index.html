@@ -76,16 +76,13 @@
           
         }
         
-        sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
-          console.log("Scene loaded event listener triggered!");
-          loadRandomModel();
-        });
-
-        document.addEventListener("mindar-target-detected", function () {
-          console.log("Target detected");
-          // Load a random model when target detected
-          loadRandomModel();
-        });
+        setInterval(function() {
+          const exampleTarget = document.querySelector("#example-target");
+          if (exampleTarget.object3D.visible) {
+            console.log("Image target detected!");
+            loadRandomModel();
+          }
+        }, 1000); // Check every second
         
         
       });
