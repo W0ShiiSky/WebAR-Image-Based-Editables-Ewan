@@ -79,6 +79,11 @@
           console.log("Scene loaded event listener triggered!");
           loadRandomModel();
         });
+
+        sceneEl.addEventListener("fullscreenchange", function() {
+          console.log("Scene fullscreenchange event listener triggered!");
+          loadRandomModel();
+        })
       });
     </script>
   </body>
