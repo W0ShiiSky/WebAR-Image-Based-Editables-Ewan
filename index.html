@@ -104,7 +104,8 @@
             console.log("Selected Model: ", randomModel);
 
             const modelEl = document.querySelector("#model");
-            modelEl.setAttribute("gltf-model", randomModel);
+            // modelEl.setAttribute("gltf-model", randomModel);
+            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
           });
         });
     </script>
