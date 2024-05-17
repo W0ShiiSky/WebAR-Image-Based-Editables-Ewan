@@ -48,7 +48,7 @@
 
       <a-assets>
         <!-- <a-asset-item id="chinese_dragon_trim" src="./static/3D-file/gltf/chinese_dragon_trim/test1.gltf"></a-asset-item> -->
-        <a-asset-item id="curious_skeleton" src="./static/3D-file/glb/curious_skeleton (1).glb"></a-asset-item>
+        <a-asset-item id="Megaman" src="./static/3D-file/glb/Megaman.glb"></a-asset-item>
         <a-asset-item id="spider_man" src="./static/3D-file/glb/spider_man.glb"></a-asset-item>
       </a-assets>
 
@@ -68,29 +68,20 @@
         const modelEl = document.querySelector("#model");
         const exampleTarget = document.querySelector("#example-target");
         const modelInfoEl = document.getElementById("model-info");
-        const models = ["curious_skeleton", "spider_man"];
-        
-        
-
-        // function randomChoice(arr){
-        //   return arr[Math.floor(Math.random()*arr.length)];
-        // }
+        const models = ["Megaman", "spider_man"];
 
         // Listen for the mindar-target-detected event
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
           console.log("Loading random model...");
-          // const models = ["Megaman", "george_bread"];
-          // let randomModel = randomChoice(models)
-          // randomModel = randomChoice(models);
+          
           const randomModel = models[Math.floor(Math.random() * models.length)];
           console.log("Selected Model: ", randomModel);
 
           modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-          // modelEl.setAttribute("src", randomModel);
 
-          if (randomModel === "curious_skeleton") {
-            modelInfoEl.textContent = "Skeleton rendered";
+          if (randomModel === "Megaman") {
+            modelInfoEl.textContent = "Megaman rendered";
           } else if (randomModel === "spider_man") {
             modelInfoEl.textContent = "Spiderman rendered";
           }
