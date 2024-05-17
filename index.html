@@ -70,26 +70,6 @@
           const randomModel = randomChoice(models)
           const modelEl = document.querySelector("#model");
           modelEl.setAttribute("src", randomModel);
-
-          modelEl.addEventListener("model-loaded", function () {
-          const model = modelEl.getObject3D('mesh');
-          if (!model) return;
-
-          // Compute the bounding box of the model
-          const box = new THREE.Box3().setFromObject(model);
-          const center = box.getCenter(new THREE.Vector3());
-          const size = box.getSize(new THREE.Vector3());
-
-          // Center the model
-          model.position.sub(center);
-
-          // Optional: Scale the model to fit a standard size
-          const scaleFactor = 1 / Math.max(size.x, size.y, size.z);
-          model.scale.set(scaleFactor, scaleFactor, scaleFactor);
-
-          // Update the model matrix
-          model.updateMatrixWorld(true);
-          });
         });
       });
     </script>
