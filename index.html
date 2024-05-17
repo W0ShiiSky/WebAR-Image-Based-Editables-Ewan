@@ -2,7 +2,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0" />
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
@@ -66,29 +66,27 @@
           return arr[Math.floor(Math.random()*arr.length)];
         }
 
-        // function loadRandomModel() {
-        //   console.log("Loading random model...");
-        //   const models = ["#Megaman", "#george_bread"];
-        //   const randomModel = randomChoice(models)
-        //   console.log("Selected Model: ", randomModel);
-        //   const modelEl = document.querySelector("#model");
-        //   modelEl.setAttribute("src", randomModel);
-          
-        // }
-        
-        // sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
-        //   console.log("Scene loaded event listener triggered!");
-        //   loadRandomModel();
-        // });
-
-        sceneEl.addEventListener('mindar-image-target-found', function (event) {
+        function loadRandomModel() {
           console.log("Loading random model...");
           const models = ["#Megaman", "#george_bread"];
-          const randomModel = randomChoice(models);
+          const randomModel = randomChoice(models)
           console.log("Selected Model: ", randomModel);
           const modelEl = document.querySelector("#model");
           modelEl.setAttribute("src", randomModel);
+          
+        }
+        
+        sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
+          console.log("Scene loaded event listener triggered!");
+          loadRandomModel();
         });
+
+        document.addEventListener('mindar-target-detected', function (event) {
+          console.log('Target detected:', event.detail.name);
+          // Load a random model when target detected
+          loadRandomModel();
+        });
+        
         
       });
     </script>
