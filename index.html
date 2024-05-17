@@ -61,8 +61,6 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector("a-scene");
-        const mindarComponent = document.querySelector("[mindar-image]");
-        const scanningOverlay = document.querySelector("#scanning-overlay");
 
         function randomChoice(arr){
           return arr[Math.floor(Math.random()*arr.length)];
@@ -75,9 +73,6 @@
           console.log("Selected Model: ", randomModel);
           const modelEl = document.querySelector("#model");
           modelEl.setAttribute("src", randomModel);
-
-          mindarComponent.setAttribute("imageTargetSrc", "./static/mind-file/Shinchan.mind");
-
         }
 
         sceneEl.addEventListener("loaded", function() {
@@ -85,21 +80,10 @@
           loadRandomModel();
         });
 
-        // document.querySelector("#scanning-overlay").addEventListener("rescan", function(){
-        //   console.log("Rescan event listener triggered!");
-        //   loadRandomModel();
-        // });
-        if (scanningOverlay) {
-            console.log("Scanning overlay found!");
-            
-            // Attach event listener to the scanning overlay
-            scanningOverlay.addEventListener("rescan", function() {
-              console.log("Rescan event listener triggered!");
-              loadRandomModel();
-            });
-          } else {
-            console.log("Scanning overlay not found!");
-          }
+        document.querySelector("#scanning-overlay").addEventListener("rescan", function(){
+          console.log("Rescan event listener triggered!");
+          loadRandomModel();
+        });
       });
     </script>
   </body>
