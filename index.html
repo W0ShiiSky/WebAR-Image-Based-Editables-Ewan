@@ -46,7 +46,7 @@
 
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
-      <a-assets id="assets" mindar-image-assets>
+      <a-assets>
         <!-- <a-asset-item id="chinese_dragon_trim" src="./static/3D-file/gltf/chinese_dragon_trim/test1.gltf"></a-asset-item> -->
         <a-asset-item id="Megaman" src="./static/3D-file/glb/Megaman.glb"></a-asset-item>
         <a-asset-item id="george_bread" src="./static/3D-file/glb/george_beard.glb"></a-asset-item>
@@ -68,7 +68,8 @@
         const modelEl = document.querySelector("#model");
         const exampleTarget = document.querySelector("#example-target");
         const modelInfoEl = document.getElementById("model-info");
-        let randomModel;
+        const models = ["Megaman", "george_bread"];
+        
         
 
         // function randomChoice(arr){
@@ -79,14 +80,14 @@
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
           console.log("Loading random model...");
-          const models = ["Megaman", "george_bread"];
+          // const models = ["Megaman", "george_bread"];
           // let randomModel = randomChoice(models)
           // randomModel = randomChoice(models);
-          randomModel = models[Math.floor(Math.random() * models.length)];
+          const randomModel = models[Math.floor(Math.random() * models.length)];
           console.log("Selected Model: ", randomModel);
 
           modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-          modelEl.setAttribute("src", randomModel);
+          // modelEl.setAttribute("src", randomModel);
 
           if (randomModel === "Megaman") {
             modelInfoEl.textContent = "Megaman rendered";
