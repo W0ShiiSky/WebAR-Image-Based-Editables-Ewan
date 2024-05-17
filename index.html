@@ -73,24 +73,24 @@
           const models = ["#Megaman", "#george_bread"];
           const randomModel = randomChoice(models)
           console.log("Selected Model: ", randomModel);
-          const modelEl = document.querySelector("#model");
+          // const modelEl = document.querySelector("#model");
           modelEl.setAttribute("src", randomModel);
           
         }
         
         // Periodically check if the image target is detected
-        setInterval(function() {
+        function checkVisibility() {
           const exampleTarget = document.querySelector("#example-target");
-          if (exampleTarget.object3D.visible && !isTargetDetected) {
-            console.log("Image target detected!");
-            isTargetDetected = true;
+          if (exampleTarget.object3D.visible) {
+            console.log("Image target is visible!");
             loadRandomModel();
-          } else if (!exampleTarget.object3D.visible && isTargetDetected) {
-            // Reset the flag when the target is no longer visible
-            isTargetDetected = false;
+          } else {
+            console.log("Image target is not visible.");
           }
-        }, 1000); // Check every second
+        }
 
+        // Check visibility every 500 milliseconds (adjust as needed)
+        setInterval(checkVisibility, 500);
         
         
       });
