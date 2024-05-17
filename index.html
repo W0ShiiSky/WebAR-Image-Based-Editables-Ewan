@@ -76,13 +76,19 @@
           
         }
         
+        // Periodically check if the image target is detected
         setInterval(function() {
           const exampleTarget = document.querySelector("#example-target");
-          if (exampleTarget.object3D.visible) {
+          if (exampleTarget.object3D.visible && !isTargetDetected) {
             console.log("Image target detected!");
+            isTargetDetected = true;
             loadRandomModel();
+          } else if (!exampleTarget.object3D.visible && isTargetDetected) {
+            // Reset the flag when the target is no longer visible
+            isTargetDetected = false;
           }
-        }, 5000); // Check every second
+        }, 1000); // Check every second
+
         
         
       });
