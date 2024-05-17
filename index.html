@@ -81,8 +81,8 @@
         //   loadRandomModel();
         // });
         // Listen for the mindar-target-detected event
-        document.addEventListener('mindar-target-detected', function (event) {
-          console.log('Target detected:', event.detail.name);
+        document.addEventListener("targetFound", function (event) {
+          console.log("Target detected:", event.detail.name);
           // Load a random model when target detected
           loadRandomModel();
         });
