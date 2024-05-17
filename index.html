@@ -61,16 +61,21 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector("a-scene");
-        
+        const mindarComponent = document.querySelector("[mindar-image]");
+
         function randomChoice(arr){
           return arr[Math.floor(Math.random()*arr.length)];
         }
 
         function loadRandomModel() {
+          console.log("Loading random model...");
           const models = ["#Megaman", "#george_bread"];
           const randomModel = randomChoice(models)
           const modelEl = document.querySelector("#model");
           modelEl.setAttribute("src", randomModel);
+
+          mindarComponent.setAttribute("imageTargetSrc", "./static/mind-file/Shinchan.mind");
+
         }
 
         sceneEl.addEventListener("loaded", loadRandomModel);
