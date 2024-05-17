@@ -81,7 +81,7 @@
         //   loadRandomModel();
         // });
 
-        sceneEl.addEventListener('loaded', function (event) {
+        sceneEl.addEventListener('mindar-image-target-found', function (event) {
           console.log("Loading random model...");
           const models = ["#Megaman", "#george_bread"];
           const randomModel = randomChoice(models);
