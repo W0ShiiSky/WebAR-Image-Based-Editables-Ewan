@@ -88,9 +88,9 @@
           modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
           modelEl.setAttribute("src", randomModel);
 
-          if (randomModel === "Megaman") {
+          if (`./static/3D-file/glb/${randomModel}.glb` === "Megaman") {
             modelInfoEl.textContent = "Megaman rendered";
-          } else if (randomModel === "george_bread") {
+          } else if (`./static/3D-file/glb/${randomModel}.glb` === "george_bread") {
             modelInfoEl.textContent = "George_bread rendered";
           }
         });
