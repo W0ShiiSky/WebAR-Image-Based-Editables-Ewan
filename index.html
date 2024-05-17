@@ -66,32 +66,22 @@
           return arr[Math.floor(Math.random()*arr.length)];
         }
 
-        // function loadRandomModel() {
-        //   console.log("Loading random model...");
-        //   const models = ["#Megaman", "#george_bread"];
-        //   const randomModel = randomChoice(models)
-        //   console.log("Selected Model: ", randomModel);
-        //   const modelEl = document.querySelector("#model");
-        //   modelEl.setAttribute("src", randomModel);
-          
-        // }
-        
-        // sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
-        //   console.log("Scene loaded event listener triggered!");
-        //   loadRandomModel();
-        // });
-        sceneEl.addEventListener("loaded", function () {
+        function loadRandomModel() {
+          console.log("Loading random model...");
           const models = ["#Megaman", "#george_bread"];
+          const randomModel = randomChoice(models)
+          console.log("Selected Model: ", randomModel);
           const modelEl = document.querySelector("#model");
-
-          // Set the model initially
-          modelEl.setAttribute("src", randomChoice(models));
-
-          // Change the model every 5 seconds
-          setInterval(function() {
-            modelEl.setAttribute("src", randomChoice(models));
-          }, 5000);
+          modelEl.setAttribute("src", randomModel);
+          
+        }
+        
+        sceneEl.addEventListener("loaded", function() { //in a-frame, the "loaded" event is triggered when the A-frame scene has finished loading, the scene is ready for interaction and rendering
+          console.log("Scene loaded event listener triggered!");
+          loadRandomModel();
         });
+        
+        
       });
     </script>
   </body>
