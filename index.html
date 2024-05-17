@@ -62,6 +62,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector("a-scene");
         const mindarComponent = document.querySelector("[mindar-image]");
+        const scanningOverlay = document.querySelector("#scanning-overlay");
 
         function randomChoice(arr){
           return arr[Math.floor(Math.random()*arr.length)];
