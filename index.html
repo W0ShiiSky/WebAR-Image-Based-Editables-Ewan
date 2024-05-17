@@ -84,7 +84,10 @@
           loadRandomModel();
         });
 
-        document.querySelector("#scanning-overlay").addEventListener("rescan", loadRandomModel);
+        document.querySelector("#scanning-overlay").addEventListener("rescan", function(){
+          console.log("Rescan event listener triggered!");
+          loadRandomModel();
+        });
       });
     </script>
   </body>
