@@ -79,7 +79,7 @@
           console.log("Target detected:");
           console.log("Loading random model...");
           const models = ["#Megaman", "#george_bread"];
-          const randomModel = randomChoice(models)
+          let randomModel = randomChoice(models)
           console.log("Selected Model: ", randomModel);
           modelEl.setAttribute("src", randomModel);
 
