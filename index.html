@@ -48,14 +48,14 @@
 
       <a-assets>
         <!-- <a-asset-item id="chinese_dragon_trim" src="./static/3D-file/gltf/chinese_dragon_trim/test1.gltf"></a-asset-item> -->
-        <a-asset-item id="Megaman" src="./static/3D-file/glb/Megaman.glb"></a-asset-item>
-        <a-asset-item id="george_bread" src="./static/3D-file/glb/george_beard.glb"></a-asset-item>
+        <a-asset-item id="curious_skeleton" src="./static/3D-file/glb/curious_skeleton (1).glb"></a-asset-item>
+        <a-asset-item id="spider_man" src="./static/3D-file/glb/spider_man.glb"></a-asset-item>
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
         <!-- <a-gltf-model src="#Megaman" rotation="0 0 0 " position="0 -0.5 0" scale="3.5 3.5 3.5" animation-mixer></a-gltf-model> -->
         <!-- <a-gltf-model src="#george_bread" rotation="0 0 0 " position="-0.25 0 4" scale="0.015 0.015 0.015" animation-mixer></a-gltf-model> -->
-        <a-gltf-model id="model" rotation="0 0 0 " position="0 -0.5 0" scale="3.5 3.5 3.5" animation-mixer></a-gltf-model>
+        <a-gltf-model id="model" rotation="0 0 0 " position="0 -3 -9" scale="2 2 2" animation-mixer></a-gltf-model>
 
       </a-entity>
 
@@ -68,7 +68,7 @@
         const modelEl = document.querySelector("#model");
         const exampleTarget = document.querySelector("#example-target");
         const modelInfoEl = document.getElementById("model-info");
-        const models = ["Megaman", "george_bread"];
+        const models = ["curious_skeleton", "spider_man"];
         
         
 
@@ -89,10 +89,10 @@
           modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
           // modelEl.setAttribute("src", randomModel);
 
-          if (randomModel === "Megaman") {
-            modelInfoEl.textContent = "Megaman rendered";
-          } else if (randomModel === "george_bread") {
-            modelInfoEl.textContent = "George_bread rendered";
+          if (randomModel === "curious_skeleton") {
+            modelInfoEl.textContent = "Skeleton rendered";
+          } else if (randomModel === "spider_man") {
+            modelInfoEl.textContent = "Spiderman rendered";
           }
         });
       });
