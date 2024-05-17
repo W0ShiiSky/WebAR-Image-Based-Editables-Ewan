@@ -62,6 +62,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector("a-scene");
         const modelEl = document.querySelector("#model");
+        const exampleTarget = document.querySelector("#example-target");
 
         function randomChoice(arr){
           return arr[Math.floor(Math.random()*arr.length)];
@@ -81,7 +82,7 @@
         //   loadRandomModel();
         // });
         // Listen for the mindar-target-detected event
-        document.addEventListener("targetFound", function (event) {
+        exampleTarget.addEventListener("targetFound", function (event) {
           console.log("Target detected:", event.detail.name);
           // Load a random model when target detected
           loadRandomModel();
