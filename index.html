@@ -84,10 +84,21 @@
           loadRandomModel();
         });
 
-        document.querySelector("#scanning-overlay").addEventListener("rescan", function(){
-          console.log("Rescan event listener triggered!");
-          loadRandomModel();
-        });
+        // document.querySelector("#scanning-overlay").addEventListener("rescan", function(){
+        //   console.log("Rescan event listener triggered!");
+        //   loadRandomModel();
+        // });
+        if (scanningOverlay) {
+            console.log("Scanning overlay found!");
+            
+            // Attach event listener to the scanning overlay
+            scanningOverlay.addEventListener("rescan", function() {
+              console.log("Rescan event listener triggered!");
+              loadRandomModel();
+            });
+          } else {
+            console.log("Scanning overlay not found!");
+          }
       });
     </script>
   </body>
