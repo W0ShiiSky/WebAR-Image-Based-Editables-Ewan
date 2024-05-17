@@ -71,9 +71,9 @@
         let randomModel;
         
 
-        function randomChoice(arr){
-          return arr[Math.floor(Math.random()*arr.length)];
-        }
+        // function randomChoice(arr){
+        //   return arr[Math.floor(Math.random()*arr.length)];
+        // }
 
         // Listen for the mindar-target-detected event
         exampleTarget.addEventListener("targetFound", event => {
@@ -95,32 +95,6 @@
           }
         });
       });
-
-
-        //   document.addEventListener("DOMContentLoaded", function () {
-        //   // const modelEl = document.querySelector("#model");
-        //   const exampleTarget = document.querySelector("#example-target");
-        //   const models = ["Megaman", "george_bread"];
-        //   const modelInfoEl = document.getElementById("model-info");
-
-        //   exampleTarget.addEventListener("targetFound", event => {
-        //     console.log("Target detected. Loading random model...");
-        //     const randomModel = models[Math.floor(Math.random() * models.length)];
-        //     console.log("Selected Model: ", randomModel);
-
-        //     const modelEl = document.querySelector("#model");
-        //     // modelEl.setAttribute("gltf-model", randomModel);
-        //     modelEl.setAttribute("gltf-model", randomModel);
-        //     modelEl.setAttribute("src", randomModel);
-
-        //     if (randomModel === "#Megaman") {
-        //       modelInfoEl.textContent = "Megaman rendered";
-        //     } else if (randomModel === "#george_bread") {
-        //       modelInfoEl.textContent = "George_bread rendered";
-        //     }
-
-        //   });
-        // });
     </script>
   </body>
 </html>
