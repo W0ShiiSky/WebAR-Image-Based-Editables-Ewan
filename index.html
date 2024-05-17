@@ -44,13 +44,15 @@
 
       <a-assets>
         <!-- <a-asset-item id="chinese_dragon_trim" src="./static/3D-file/gltf/chinese_dragon_trim/test1.gltf"></a-asset-item> -->
-        <!-- <a-asset-item id="Megaman" src="./static/3D-file/glb/Megaman.glb"></a-asset-item> -->
+        <a-asset-item id="Megaman" src="./static/3D-file/glb/Megaman.glb"></a-asset-item>
         <a-asset-item id="george_bread" src="./static/3D-file/glb/george_beard.glb"></a-asset-item>
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
         <!-- <a-gltf-model src="#Megaman" rotation="0 0 0 " position="0 -0.5 0" scale="3.5 3.5 3.5" animation-mixer></a-gltf-model> -->
-        <a-gltf-model src="#george_bread" rotation="0 0 0 " position="-0.25 0 4" scale="0.015 0.015 0.015" animation-mixer></a-gltf-model>
+        <!-- <a-gltf-model src="#george_bread" rotation="0 0 0 " position="-0.25 0 4" scale="0.015 0.015 0.015" animation-mixer></a-gltf-model> -->
+        <a-gltf-model id="model" rotation="0 0 0 " position="-0.25 0 4" scale="0.015 0.015 0.015" animation-mixer></a-gltf-model>
+
       </a-entity>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -59,44 +61,55 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector("a-scene");
-        let arSystem;
+        function randomChoice(arr){
+          return arr[Math.floor(Math.random()*arr.length)];
+        }
+
         sceneEl.addEventListener("loaded", function () {
-          arSystem = sceneEl.systems["mindar-image-system"];
-        });
-        1;
-
-        const exampleTarget = document.querySelector("#example-target");
-
-        const startButton = document.querySelector("#example-start-button");
-        const stopButton = document.querySelector("#example-stop-button");
-        const pauseButton = document.querySelector("#example-pause-button");
-        const pauseKeepVideoButton = document.querySelector("#example-pause-keep-video-button");
-        const unpauseButton = document.querySelector("#example-unpause-button");
-
-        // arReady event triggered when ready
-        sceneEl.addEventListener("arReady", (event) => {
-          // console.log("MindAR is ready")
-        });
-        // arError event triggered when something went wrong. Mostly browser compatbility issue
-        sceneEl.addEventListener("arError", (event) => {
-          // console.log("MindAR failed to start")
-        });
-        // detect target found
-        exampleTarget.addEventListener("targetFound", (event) => {
-          console.log("target found");
-          document.getElementById("vid").play();
-        });
-        // detect target lost
-        exampleTarget.addEventListener("targetLost", (event) => {
-          console.log("target lost");
-          document.getElementById("vid").pause();
+          const models = ["#Megaman", "#george_bread"];
+          const randomModel = randomChoice(models)
+          const modelEl = document.querySelector("#model");
+          modelEl.setAttribute("src", randomModel);
         });
 
-      screen.orientation.addEventListener("change", () => {
-        // window.location.reload();
-        arSystem.stop();
-        arSystem.start();
-      });
+        // let arSystem;
+        // sceneEl.addEventListener("loaded", function () {
+        //   arSystem = sceneEl.systems["mindar-image-system"];
+        // });
+        // 1;
+
+      //   const exampleTarget = document.querySelector("#example-target");
+
+      //   const startButton = document.querySelector("#example-start-button");
+      //   const stopButton = document.querySelector("#example-stop-button");
+      //   const pauseButton = document.querySelector("#example-pause-button");
+      //   const pauseKeepVideoButton = document.querySelector("#example-pause-keep-video-button");
+      //   const unpauseButton = document.querySelector("#example-unpause-button");
+
+      //   // arReady event triggered when ready
+      //   sceneEl.addEventListener("arReady", (event) => {
+      //     // console.log("MindAR is ready")
+      //   });
+      //   // arError event triggered when something went wrong. Mostly browser compatbility issue
+      //   sceneEl.addEventListener("arError", (event) => {
+      //     // console.log("MindAR failed to start")
+      //   });
+      //   // detect target found
+      //   exampleTarget.addEventListener("targetFound", (event) => {
+      //     console.log("target found");
+      //     document.getElementById("vid").play();
+      //   });
+      //   // detect target lost
+      //   exampleTarget.addEventListener("targetLost", (event) => {
+      //     console.log("target lost");
+      //     document.getElementById("vid").pause();
+      //   });
+
+      // screen.orientation.addEventListener("change", () => {
+      //   // window.location.reload();
+      //   arSystem.stop();
+      //   arSystem.start();
+      // });
 
 
       });
