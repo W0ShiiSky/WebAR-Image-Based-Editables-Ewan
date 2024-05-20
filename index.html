@@ -69,14 +69,14 @@
                             "Your kindness will be repaid in unexpected ways.",
                             "You will achieve your goals with determination and perseverance.",
                             "A windfall of good fortune is heading your way."];
-
-
+        
+        const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         // Listen for the mindar-target-detected event
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
           console.log("Loading random model...");
 
-          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          
           const fortuneSlip = document.getElementById('fortuneSlip');
           
           fortuneSlip.textContent = randomFortune;
