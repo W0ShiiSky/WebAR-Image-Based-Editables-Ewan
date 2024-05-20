@@ -69,26 +69,41 @@
                             "Your kindness will be repaid in unexpected ways.",
                             "You will achieve your goals with determination and perseverance.",
                             "A windfall of good fortune is heading your way."];
-        
-        const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-        // Listen for the mindar-target-detected event
-        exampleTarget.addEventListener("targetFound", event => {
-          console.log("Target detected:");
-          console.log("Loading random model...");
-
-          
-          const fortuneSlip = document.getElementById('fortuneSlip');
-          
-          fortuneSlip.textContent = randomFortune;
 
           const fortuneCookie = document.getElementById('fortuneCookie');
           fortuneCookie.style.display = "block";
-          
+          document.querySelector("a-scene").addEventListener("click", function() {
+          // Display the fortune cookie after a click
+          const fortuneSlip = document.getElementById('fortuneSlip');
+          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          fortuneSlip.textContent = randomFortune;
+
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
             fortuneCookie.classList.add('cracked');
           }, 1000);
         });
+        
+        // const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+        // Listen for the mindar-target-detected event
+        // exampleTarget.addEventListener("targetFound", event => {
+          // console.log("Target detected:");
+          // console.log("Loading random model...");
+
+          
+          // const fortuneSlip = document.getElementById('fortuneSlip');
+          
+          // fortuneSlip.textContent = randomFortune;
+
+          // const fortuneCookie = document.getElementById('fortuneCookie');
+          // fortuneCookie.style.display = "block";
+          
+          // Set timeout to add 'cracked' class after 1 second
+          // setTimeout(() => {
+            // fortuneCookie.classList.add('cracked');
+          // }, 1000);
+        // });
+
       });
     </script>
   </body>
