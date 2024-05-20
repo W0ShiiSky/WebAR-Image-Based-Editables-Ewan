@@ -102,6 +102,7 @@
         const modelInfoEl = document.getElementById("model-info");
         const models = ["Megaman", "spider_man"];
         const textOptions = ["CONGRATZZ U WON SOMETHING", "UNFORTUNATELY", "TRY AGAIN NEXT TIME", "REFRESH PLEASE", "HAVE FUN"];
+        const textBox = document.getElementById("text-box");
 
 
         // Listen for the mindar-target-detected event
@@ -128,6 +129,8 @@
           // Set random text content
           const randomText = textOptions[Math.floor(Math.random() * textOptions.length)];
           modelInfoEl.textContent = randomText;
+
+          textBox.style.display = "block";
         });
       });
     </script>
