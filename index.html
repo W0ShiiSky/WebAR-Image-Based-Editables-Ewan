@@ -127,7 +127,8 @@
                             "Your kindness will be repaid in unexpected ways.",
                             "You will achieve your goals with determination and perseverance.",
                             "A windfall of good fortune is heading your way."];
-        const textBox = document.getElementById("text-box");
+        // const textBox = document.getElementById("text-box");
+        const fortuneSlip = document.getElementById('fortuneSlip');
 
 
         // Listen for the mindar-target-detected event
@@ -152,8 +153,10 @@
             // modelInfoEl.textContent = "Spiderman rendered";
           }
           // Set random text content
-          const randomText = textOptions[Math.floor(Math.random() * textOptions.length)];
-          modelInfoEl.textContent = randomText;
+          // const randomText = textOptions[Math.floor(Math.random() * textOptions.length)];
+          // modelInfoEl.textContent = randomText;
+          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          fortuneSlip.textContent = randomFortune;
 
           textBox.style.display = "block";
 
