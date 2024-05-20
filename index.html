@@ -92,7 +92,11 @@
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
             fortuneCookie.classList.add('cracked');
-            confetti.start();
+            confetti({
+              particleCount: 100,
+              spread: 70,
+              origin: { y: 0.6 }
+            });
           }, 1000);
         });
       });
