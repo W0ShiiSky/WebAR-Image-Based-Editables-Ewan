@@ -73,6 +73,7 @@
         // Hide the fortune cookie initially
         const fortuneCookie = document.getElementById('fortuneCookie');
         fortuneCookie.style.display = "none";
+        fortuneCookie.classList.add('shaking'); // Add the shaking class
 
         // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
@@ -117,6 +118,7 @@
 
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
+            fortuneCookie.classList.remove('shaking'); // Remove the shaking class
             fortuneCookie.classList.add('cracked');
 
             // Trigger confetti effect
