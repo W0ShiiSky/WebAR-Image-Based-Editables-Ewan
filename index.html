@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0" />
@@ -25,7 +24,9 @@
             </div>
           </div>
         </div>
+
       </div>
+
     </div>
 
     <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
@@ -34,68 +35,40 @@
     </div>
     <div class="fortune-slip" id="fortuneSlip"></div>
 
+
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
+
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
         <a-gltf-model id="model" rotation="0 0 0 " position="0 -3 -9" scale="2 2 2" animation-mixer></a-gltf-model>
+
       </a-entity>
+
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+
     </a-scene>
-
     <script>
-      // Define handleInteraction function before attaching event listeners
-      function handleInteraction() {
-        if (hasClicked) return; // If already clicked, do nothing
-        hasClicked = true; // Set flag to true after the first click
-
-        // Display the fortune slip and crack the fortune cookie
-        const fortuneSlip = document.getElementById('fortuneSlip');
-        const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-        fortuneSlip.textContent = randomFortune;
-
-        // Set timeout to add 'cracked' class after 1 second
-        setTimeout(() => {
-          fortuneCookie.classList.remove('shaking'); // Remove the shaking class
-          fortuneCookie.classList.add('cracked');
-
-          // Trigger confetti effect
-          fire(0.25, {
-            spread: 50,
-            startVelocity: 55,
-          });
-
-          fire(0.2, {
-            spread: 100,
-          });
-
-          fire(0.35, {
-            spread: 150,
-            decay: 0.91,
-            scalar: 0.8,
-          });
-
-          fire(0.1, {
-            spread: 150,
-            startVelocity: 25,
-            decay: 0.92,
-            scalar: 1.2,
-          });
-
-          fire(0.1, {
-            spread: 140,
-            startVelocity: 45,
-          });
-
-        }, 1000);
-        const uiOverlay = document.getElementById('UI-overlay');
-        uiOverlay.style.display = 'none';
-      }
-
-      // Inside the DOMContentLoaded event listener, attach event listeners to the scene
       document.addEventListener("DOMContentLoaded", function () {
         const exampleTarget = document.querySelector("#example-target");
-        const fortunes = [
-          // Array of fortunes...
-        ];
+        const fortunes = ["Success is on your horizon.",
+                            "Good news will come to you by mail.",
+                            "A pleasant surprise is waiting for you.",
+                            "You will meet someone special soon.",
+                            "Your hard work will pay off.",
+                            "Adventure is in your future.",
+                            "Happiness will come your way soon.",
+                            "A lifetime of happiness lies ahead of you.",
+                            "You will soon find the love of your life.",
+                            "Financial prosperity is coming your way.",
+                            "A new opportunity will present itself to you.",
+                            "Your creative talents will be recognized and rewarded.",
+                            "You will make lasting memories with friends and family.",
+                            "Travel plans will bring you joy and excitement.",
+                            "Unexpected blessings are coming your way.",
+                            "You will overcome obstacles with ease.",
+                            "An exciting adventure awaits you.",
+                            "Your kindness will be repaid in unexpected ways.",
+                            "You will achieve your goals with determination and perseverance.",
+                            "A windfall of good fortune is heading your way."];
         
         // Hide the fortune cookie initially
         const fortuneCookie = document.getElementById('fortuneCookie');
@@ -115,9 +88,14 @@
         const count = 200;
         const defaults = { origin: { y: 0.7 } };
 
+        // function fire(particleRatio, opts) {
+        //   confetti(Object.assign({}, defaults, opts, {
+        //     particleCount: Math.floor(count * particleRatio),
+        //   }));
+        // }
         function fire(particleRatio, opts) {
-          const spread = Math.random() * 360;
-          const startVelocity = Math.random() * 100;
+          const spread = Math.random() * 360; // Random spread angle between 0 and 360
+          const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
           confetti(Object.assign({}, defaults, opts, {
             particleCount: Math.floor(count * particleRatio),
             spread: spread,
@@ -125,11 +103,56 @@
           }));
         }
         
-        let hasClicked = false;
+        let hasClicked = false; // Flag to prevent multiple clicks
 
-        // Listen for both click and touchstart events on the scene
-        document.querySelector("a-scene").addEventListener("click", handleInteraction);
-        document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
+        // Listen for the click event on the scene
+        document.querySelector("a-scene").addEventListener("click", function() {
+
+          if (hasClicked) return; // If already clicked, do nothing
+          hasClicked = true; // Set flag to true after the first click
+
+          // Display the fortune slip and crack the fortune cookie
+          const fortuneSlip = document.getElementById('fortuneSlip');
+          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          fortuneSlip.textContent = randomFortune;
+
+          // Set timeout to add 'cracked' class after 1 second
+          setTimeout(() => {
+            fortuneCookie.classList.remove('shaking'); // Remove the shaking class
+            fortuneCookie.classList.add('cracked');
+
+            // Trigger confetti effect
+            fire(0.25, {
+              spread: 50,
+              startVelocity: 55,
+            });
+
+            fire(0.2, {
+              spread: 100,
+            });
+
+            fire(0.35, {
+              spread: 150,
+              decay: 0.91,
+              scalar: 0.8,
+            });
+
+            fire(0.1, {
+              spread: 150,
+              startVelocity: 25,
+              decay: 0.92,
+              scalar: 1.2,
+            });
+
+            fire(0.1, {
+              spread: 140,
+              startVelocity: 45,
+            });
+
+          }, 1000);
+          const uiOverlay = document.getElementById('UI-overlay');
+          uiOverlay.style.display = 'none';
+        });
       });
     </script>
   </body>
