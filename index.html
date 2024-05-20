@@ -92,16 +92,33 @@
         //     particleCount: Math.floor(count * particleRatio),
         //   }));
         // }
-        function fire(particleRatio, opts) {
-          const spread = Math.random() * 360; // Random spread angle between 0 and 360
-          const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
-          confetti(Object.assign({}, defaults, opts, {
-            particleCount: Math.floor(count * particleRatio),
-            spread: spread,
-            startVelocity: startVelocity,
-          }));
+        // function fire(particleRatio, opts) {
+        //   const spread = Math.random() * 360; // Random spread angle between 0 and 360
+        //   const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
+        //   confetti(Object.assign({}, defaults, opts, {
+        //     particleCount: Math.floor(count * particleRatio),
+        //     spread: spread,
+        //     startVelocity: startVelocity,
+        //   }));
+        // }
+        function fireRandomConfetti() {
+          // Define an array of configurations for confetti bursts
+          const confettiConfigs = [
+            { particleRatio: 0.25, spread: Math.random() * 360, startVelocity: Math.random() * 100 },
+            { particleRatio: 0.2, spread: Math.random() * 360, startVelocity: Math.random() * 100 },
+            { particleRatio: 0.35, spread: Math.random() * 360, startVelocity: Math.random() * 100 },
+            { particleRatio: 0.1, spread: Math.random() * 360, startVelocity: Math.random() * 100 },
+            { particleRatio: 0.1, spread: Math.random() * 360, startVelocity: Math.random() * 100 }
+          ];
+
+          // Loop through each configuration and trigger a confetti burst
+          confettiConfigs.forEach(config => {
+            fire(config.particleRatio, {
+              spread: config.spread,
+              startVelocity: config.startVelocity
+            });
+          });
         }
-        
         let hasClicked = false; // Flag to prevent multiple clicks
 
         // Listen for the click event on the scene
