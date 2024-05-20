@@ -20,47 +20,20 @@
               <div class="scanline"></div>
             </div>
           </div>
-          <p id="scanBoxP">Scan characters to see AR feature! Hello</p>
         </div>
-
-        <div id="iconsDiv">
-          <div class="btnDiv">
-            <img id="loadModelsButton" src="./static/images/icons/View-Models-button.png" alt="Click to load more Models" onClick="location.href='./models.html'">
-            <p class="btnP">Add Models</p>
-          </div>
-          <p id="pDistance"></p>
-          <div class="btnDiv">
-            <img id="moreInfoButton" src="./static/images/icons/More-Info-Button.png" alt="Info Button" onClick="console.log('info button clicked')">
-            <p class="btnP">More Info</p>
-          </div>
-          
-        </div>
-  
+        <div class="fortune-cookie" id="fortuneCookie">
+          <div class="cookie-left" id="cookieLeft"></div>
+          <div class="cookie-right" id="cookieRight"></div>
+      </div>
+      <div class="fortune-slip" id="fortuneSlip"></div>
       </div>
 
     </div>
 
-    <!-- <div id="text-box" style="position: absolute; top: 10px; left: 10px; background-color: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; font-family: 'Roboto', sans-serif; display: none;">
-      <p id="model-info" style="margin: 0; color: black;"></p>
-    </div> -->
-
-    <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
-      <div class="cookie-left" id="cookieLeft"></div>
-      <div class="cookie-right" id="cookieRight"></div>
-    </div>
-    <div class="fortune-slip" id="fortuneSlip"></div>
 
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
-      <!-- <a-assets>
-        <a-asset-item id="chinese_dragon_trim" src="./static/3D-file/gltf/chinese_dragon_trim/test1.gltf"></a-asset-item>
-        <a-asset-item id="Megaman" src="./static/3D-file/glb/Megaman.glb"></a-asset-item>
-        <a-asset-item id="spider_man" src="./static/3D-file/glb/spider_man.glb"></a-asset-item>
-      </a-assets> -->
-
-      <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
-        <!-- <a-gltf-model src="#Megaman" rotation="0 0 0 " position="0 -0.5 0" scale="3.5 3.5 3.5" animation-mixer></a-gltf-model> -->
-        <!-- <a-gltf-model src="#george_bread" rotation="0 0 0 " position="-0.25 0 4" scale="0.015 0.015 0.015" animation-mixer></a-gltf-model> -->
+      <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
         <a-gltf-model id="model" rotation="0 0 0 " position="0 -3 -9" scale="2 2 2" animation-mixer></a-gltf-model>
 
       </a-entity>
@@ -68,45 +41,12 @@
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
 
     </a-scene>
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const sceneEl = document.querySelector("a-scene");
-        const modelEl = document.querySelector("#model");
-        const exampleTarget = document.querySelector("#example-target");
-        const modelInfoEl = document.getElementById("model-info");
-        const models = ["Megaman", "spider_man"];
-
-        // Listen for the mindar-target-detected event
-        exampleTarget.addEventListener("targetFound", event => {
-          console.log("Target detected:");
-          console.log("Loading random model...");
-          
-          const randomModel = models[Math.floor(Math.random() * models.length)];
-          console.log("Selected Model: ", randomModel);
-
-          // modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-
-          if (randomModel === "Megaman") {
-            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-            modelEl.setAttribute("position", "0 -0.5 0");
-            modelEl.setAttribute("scale", "3.5 3.5 3.5");
-            modelInfoEl.textContent = "Megaman rendered";
-          } else if (randomModel === "spider_man") {
-            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-            modelEl.setAttribute("position", "0 -3 -9");
-            modelEl.setAttribute("scale", "2 2 2");
-            modelInfoEl.textContent = "Spiderman rendered";
-          }
-        });
-      });
-    </script> -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const sceneEl = document.querySelector("a-scene");
         const modelEl = document.querySelector("#model");
         const exampleTarget = document.querySelector("#example-target");
         const modelInfoEl = document.getElementById("model-info");
-        // const models = ["Megaman", "spider_man"];
         const fortunes = ["Success is on your horizon.",
                             "Good news will come to you by mail.",
                             "A pleasant surprise is waiting for you.",
@@ -127,42 +67,19 @@
                             "Your kindness will be repaid in unexpected ways.",
                             "You will achieve your goals with determination and perseverance.",
                             "A windfall of good fortune is heading your way."];
-        // const textBox = document.getElementById("text-box");
-        const fortuneSlip = document.getElementById('fortuneSlip');
 
 
         // Listen for the mindar-target-detected event
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
           console.log("Loading random model...");
-          
-          const randomModel = models[Math.floor(Math.random() * models.length)];
-          console.log("Selected Model: ", randomModel);
 
-          // modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-
-          // if (randomModel === "Megaman") {
-          //   modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-          //   modelEl.setAttribute("position", "0 -0.5 0");
-          //   modelEl.setAttribute("scale", "3.5 3.5 3.5");
-          //   // modelInfoEl.textContent = "Megaman rendered";
-          // } else if (randomModel === "spider_man") {
-          //   modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-          //   modelEl.setAttribute("position", "0 -3 -9");
-          //   modelEl.setAttribute("scale", "2 2 2");
-          //   // modelInfoEl.textContent = "Spiderman rendered";
-          // }
-          // Set random text content
-          // const randomText = textOptions[Math.floor(Math.random() * textOptions.length)];
-          // modelInfoEl.textContent = randomText;
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          const fortuneSlip = document.getElementById('fortuneSlip');
+          
           fortuneSlip.textContent = randomFortune;
 
-          // textBox.style.display = "block";
-
-
           const fortuneCookie = document.getElementById('fortuneCookie');
-          fortuneCookie.style.display = "block";
           fortuneCookie.classList.add('cracked');
         });
       });
