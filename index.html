@@ -103,61 +103,95 @@
           }));
         }
         
-        let hasClicked = false; // Flag to prevent multiple clicks
+      //   let hasClicked = false; // Flag to prevent multiple clicks
 
-        // Listen for the click event on the scene
-        document.querySelector("a-scene").addEventListener("click", function() {
+      //   // Listen for the click event on the scene
+      //   document.querySelector("a-scene").addEventListener("click", function() {
 
-          if (hasClicked) return; // If already clicked, do nothing
-          hasClicked = true; // Set flag to true after the first click
+      //     if (hasClicked) return; // If already clicked, do nothing
+      //     hasClicked = true; // Set flag to true after the first click
 
-          // Display the fortune slip and crack the fortune cookie
-          const fortuneSlip = document.getElementById('fortuneSlip');
-          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-          fortuneSlip.textContent = randomFortune;
+      //     // Display the fortune slip and crack the fortune cookie
+      //     const fortuneSlip = document.getElementById('fortuneSlip');
+      //     const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+      //     fortuneSlip.textContent = randomFortune;
 
-          // Set timeout to add 'cracked' class after 1 second
-          setTimeout(() => {
-            fortuneCookie.classList.remove('shaking'); // Remove the shaking class
-            fortuneCookie.classList.add('cracked');
+      //     // Set timeout to add 'cracked' class after 1 second
+      //     setTimeout(() => {
+      //       fortuneCookie.classList.remove('shaking'); // Remove the shaking class
+      //       fortuneCookie.classList.add('cracked');
 
-            // Trigger confetti effect
-            fire(0.25, {
-              spread: 50,
-              startVelocity: 55,
-            });
+      //       // Trigger confetti effect
+      //       fire(0.25, {
+      //         spread: 50,
+      //         startVelocity: 55,
+      //       });
 
-            fire(0.2, {
-              spread: 100,
-            });
+      //       fire(0.2, {
+      //         spread: 100,
+      //       });
 
-            fire(0.35, {
-              spread: 150,
-              decay: 0.91,
-              scalar: 0.8,
-            });
+      //       fire(0.35, {
+      //         spread: 150,
+      //         decay: 0.91,
+      //         scalar: 0.8,
+      //       });
 
-            fire(0.1, {
-              spread: 150,
-              startVelocity: 25,
-              decay: 0.92,
-              scalar: 1.2,
-            });
+      //       fire(0.1, {
+      //         spread: 150,
+      //         startVelocity: 25,
+      //         decay: 0.92,
+      //         scalar: 1.2,
+      //       });
 
-            fire(0.1, {
-              spread: 140,
-              startVelocity: 45,
-            });
+      //       fire(0.1, {
+      //         spread: 140,
+      //         startVelocity: 45,
+      //       });
 
-          }, 1000);
-        });
+      //     }, 1000);
+      //   });
 
-        // Function to shake and pop the fortune cookie
-        function shakeAndPop() {
-          if (hasClicked) return; // If already clicked, do nothing
-          hasClicked = true; // Set flag to true after the first click
+      //   // Function to shake and pop the fortune cookie
+      //   function shakeAndPop() {
+      //     if (hasClicked) return; // If already clicked, do nothing
+      //     hasClicked = true; // Set flag to true after the first click
 
-          const fortuneCookie = document.getElementById('fortuneCookie');
+      //     const fortuneCookie = document.getElementById('fortuneCookie');
+      //     fortuneCookie.classList.remove('shaking'); // Remove the shaking class
+      //     fortuneCookie.classList.add('cracked');
+
+      //     // Trigger confetti effect
+      //     fire(0.25, {
+      //       spread: 50,
+      //       startVelocity: 55,
+      //     });
+
+      //     fire(0.2, {
+      //       spread: 100,
+      //     });
+
+      //     fire(0.35, {
+      //       spread: 150,
+      //       decay: 0.91,
+      //       scalar: 0.8,
+      //     });
+
+      //     fire(0.1, {
+      //       spread: 150,
+      //       startVelocity: 25,
+      //       decay: 0.92,
+      //       scalar: 1.2,
+      //     });
+
+      //     fire(0.1, {
+      //       spread: 140,
+      //       startVelocity: 45,
+      //     });
+      //   }
+      // });
+      // Function to shake and pop the fortune cookie
+      function shakeAndPop() {
           fortuneCookie.classList.remove('shaking'); // Remove the shaking class
           fortuneCookie.classList.add('cracked');
 
@@ -188,6 +222,8 @@
             spread: 140,
             startVelocity: 45,
           });
+
+          fortuneCookie.onclick = null; // Remove onclick after one click
         }
       });
     </script>
