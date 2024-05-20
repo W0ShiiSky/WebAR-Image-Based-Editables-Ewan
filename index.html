@@ -40,9 +40,9 @@
 
     </div>
 
-    <div id="text-box" style="position: absolute; top: 10px; left: 10px; background-color: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; font-family: 'Roboto', sans-serif; display: none;">
+    <!-- <div id="text-box" style="position: absolute; top: 10px; left: 10px; background-color: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; font-family: 'Roboto', sans-serif; display: none;">
       <p id="model-info" style="margin: 0; color: black;"></p>
-    </div>
+    </div> -->
 
     <div class="fortune-cookie" id="fortuneCookie">
       <div class="cookie-left" id="cookieLeft"></div>
@@ -107,7 +107,7 @@
         const exampleTarget = document.querySelector("#example-target");
         const modelInfoEl = document.getElementById("model-info");
         const models = ["Megaman", "spider_man"];
-        const textOptions = ["Success is on your horizon.",
+        const fortunes = ["Success is on your horizon.",
                             "Good news will come to you by mail.",
                             "A pleasant surprise is waiting for you.",
                             "You will meet someone special soon.",
@@ -158,7 +158,7 @@
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
           fortuneSlip.textContent = randomFortune;
 
-          textBox.style.display = "block";
+          // textBox.style.display = "block";
 
           const fortuneCookie = document.getElementById('fortuneCookie');
           fortuneCookie.classList.add('cracked');
