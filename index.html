@@ -83,7 +83,11 @@
 
           const fortuneCookie = document.getElementById('fortuneCookie');
           fortuneCookie.style.display = "block";
-          fortuneCookie.classList.add('cracked');
+          
+          // Set timeout to add 'cracked' class after 1 second
+          setTimeout(() => {
+            fortuneCookie.classList.add('cracked');
+          }, 1000);
         });
       });
     </script>
