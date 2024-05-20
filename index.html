@@ -44,7 +44,7 @@
       <p id="model-info" style="margin: 0; color: black;"></p>
     </div> -->
 
-    <div class="fortune-cookie" id="fortuneCookie">
+    <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
       <div class="cookie-left" id="cookieLeft"></div>
       <div class="cookie-right" id="cookieRight"></div>
     </div>
@@ -160,7 +160,9 @@
 
           // textBox.style.display = "block";
 
+
           const fortuneCookie = document.getElementById('fortuneCookie');
+          fortuneCookie.style.display = "block";
           fortuneCookie.classList.add('cracked');
         });
       });
