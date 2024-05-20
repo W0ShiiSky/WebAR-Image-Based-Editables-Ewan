@@ -87,12 +87,21 @@
         const count = 200;
         const defaults = { origin: { y: 0.7 } };
 
+        // function fire(particleRatio, opts) {
+        //   confetti(Object.assign({}, defaults, opts, {
+        //     particleCount: Math.floor(count * particleRatio),
+        //   }));
+        // }
         function fire(particleRatio, opts) {
+          const spread = Math.random() * 360; // Random spread angle between 0 and 360
+          const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
           confetti(Object.assign({}, defaults, opts, {
             particleCount: Math.floor(count * particleRatio),
+            spread: spread,
+            startVelocity: startVelocity,
           }));
         }
-
+        
         let hasClicked = false; // Flag to prevent multiple clicks
 
         // Listen for the click event on the scene
