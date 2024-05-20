@@ -228,9 +228,11 @@ body {
 }
 
 .fortune-cookie {
-  position: relative;
+  position: fixed;
   width: 200px;
   height: 100px;
+  top: 50%;
+  left: 50%;
   cursor: pointer;
 }
 
