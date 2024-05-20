@@ -29,7 +29,7 @@
 
     </div>
 
-    <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
+    <div class="fortune-cookie" id="fortuneCookie" style="display: none;" onclick="shakeAndPop()">
       <div class="cookie-left" id="cookieLeft"></div>
       <div class="cookie-right" id="cookieRight"></div>
     </div>
@@ -151,6 +151,44 @@
 
           }, 1000);
         });
+
+        // Function to shake and pop the fortune cookie
+        function shakeAndPop() {
+          if (hasClicked) return; // If already clicked, do nothing
+          hasClicked = true; // Set flag to true after the first click
+
+          const fortuneCookie = document.getElementById('fortuneCookie');
+          fortuneCookie.classList.remove('shaking'); // Remove the shaking class
+          fortuneCookie.classList.add('cracked');
+
+          // Trigger confetti effect
+          fire(0.25, {
+            spread: 50,
+            startVelocity: 55,
+          });
+
+          fire(0.2, {
+            spread: 100,
+          });
+
+          fire(0.35, {
+            spread: 150,
+            decay: 0.91,
+            scalar: 0.8,
+          });
+
+          fire(0.1, {
+            spread: 150,
+            startVelocity: 25,
+            decay: 0.92,
+            scalar: 1.2,
+          });
+
+          fire(0.1, {
+            spread: 140,
+            startVelocity: 45,
+          });
+        }
       });
     </script>
   </body>
