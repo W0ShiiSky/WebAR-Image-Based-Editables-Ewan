@@ -105,9 +105,15 @@
         
         let hasClicked = false; // Flag to prevent multiple clicks
 
-        // Listen for the click event on the scene
-        document.querySelector("a-scene").addEventListener("click", function() {
+        // Listen for both click and touchstart events on the scene
+        document.querySelector("a-scene").addEventListener("click", handleInteraction);
+        document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
 
+      });
+
+
+        // Listen for the click event on the scene
+        function handleInteraction(){
           if (hasClicked) return; // If already clicked, do nothing
           hasClicked = true; // Set flag to true after the first click
 
@@ -152,8 +158,8 @@
           }, 1000);
           const uiOverlay = document.getElementById('UI-overlay');
           uiOverlay.style.display = 'none';
-        });
-      });
+        
+      }
     </script>
   </body>
 </html>
