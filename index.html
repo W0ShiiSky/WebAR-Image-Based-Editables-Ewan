@@ -26,7 +26,7 @@
 
     </div>
 
-    <div class="fortune-cookie" id="fortuneCookie">
+    <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
       <div class="cookie-left" id="cookieLeft"></div>
       <div class="cookie-right" id="cookieRight"></div>
     </div>
@@ -82,7 +82,7 @@
           fortuneSlip.textContent = randomFortune;
 
           const fortuneCookie = document.getElementById('fortuneCookie');
-          fortuneCookie.style.display = "none";
+          fortuneCookie.style.display = "block";
           fortuneCookie.classList.add('cracked');
         });
       });
