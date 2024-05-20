@@ -229,6 +229,7 @@ body {
 
 .fortune-cookie {
   position: relative;
+  align-items: center;
   width: 200px;
   height: 100px;
   top: 50%;
