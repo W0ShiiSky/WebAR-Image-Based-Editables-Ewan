@@ -26,7 +26,7 @@
 
     </div>
 
-    <div class="fortune-cookie" id="fortuneCookie">
+    <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
       <div class="cookie-left" id="cookieLeft"></div>
       <div class="cookie-right" id="cookieRight"></div>
     </div>
@@ -75,6 +75,9 @@
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
           console.log("Loading random model...");
+
+          // Show the fortune cookie when the target is found
+          fortuneCookie.style.display = "block";
 
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
           const fortuneSlip = document.getElementById('fortuneSlip');
