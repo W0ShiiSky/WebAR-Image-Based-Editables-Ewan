@@ -234,6 +234,7 @@ body {
   height: 100px;
   top: 50%;
   cursor: pointer;
+  justify-content: center;
 }
 
 .cookie-left {
@@ -274,13 +275,6 @@ body {
   border-radius: 5px;
   transition: transform 0.5s 0.5s, opacity 0.5s 0.5s;
   font-weight: bold;
-}
-
-button {
-  margin-top: 25px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
 }
 
 .cracked .cookie-left {
