@@ -5,6 +5,8 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
   </head>
@@ -90,6 +92,7 @@
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
             fortuneCookie.classList.add('cracked');
+            confetti.start();
           }, 1000);
         });
       });
