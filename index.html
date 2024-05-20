@@ -73,7 +73,7 @@
         // Hide the fortune cookie initially
         const fortuneCookie = document.getElementById('fortuneCookie');
         fortuneCookie.style.display = "none";
-        fortuneCookie.classList.add('shaking'); // Add the shaking class
+        // fortuneCookie.classList.add('shaking'); // Add the shaking class
 
         // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
@@ -82,6 +82,7 @@
           
           // Show the fortune cookie after the target is found
           fortuneCookie.style.display = "block";
+          fortuneCookie.classList.add('shaking');
         });
         
         // Function for confetti
