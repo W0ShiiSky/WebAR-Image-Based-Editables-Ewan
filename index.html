@@ -84,7 +84,7 @@
 
           if (randomModel === "minecraft_chest") {
             modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-            modelEl.setAttribute("position", "0 0 0");
+            modelEl.setAttribute("position", "2 0 0");
             modelEl.setAttribute("scale", "20 20 20");
             modelInfoEl.textContent = "minecraft_chest rendered";
           } else if (randomModel === "spider_man") {
@@ -93,6 +93,7 @@
             modelEl.setAttribute("scale", "2 2 2");
             modelInfoEl.textContent = "Spiderman rendered";
           }
+          modelInfoEl.textContent = randomText;
         });
       });
     </script>
