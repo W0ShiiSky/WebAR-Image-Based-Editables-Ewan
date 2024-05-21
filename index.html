@@ -47,16 +47,11 @@
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
       <a-assets>
-        <!-- <a-asset-item id="chinese_dragon_trim" src="./static/3D-file/gltf/chinese_dragon_trim/test1.gltf"></a-asset-item> -->
         <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest_without_animation.glb"></a-asset-item>
-        <a-asset-item id="spider_man" src="./static/3D-file/glb/spider_man.glb"></a-asset-item>
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
-        <!-- <a-gltf-model src="#Megaman" rotation="0 0 0 " position="0 -0.5 0" scale="3.5 3.5 3.5" animation-mixer></a-gltf-model> -->
-        <!-- <a-gltf-model src="#george_bread" rotation="0 0 0 " position="-0.25 0 4" scale="0.015 0.015 0.015" animation-mixer></a-gltf-model> -->
-        <a-gltf-model id="model" rotation="0 0 0 " position="0 -3 -9" scale="2 2 2" animation-mixer></a-gltf-model>
-
+        <a-gltf-model id="model" src="#minecraft_chest" rotation="0 0 0 " position="0 -0.5 0.1" scale="5 5 5" animation-mixer></a-gltf-model>
       </a-entity>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -64,78 +59,25 @@
     </a-scene>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const sceneEl = document.querySelector("a-scene");
-        const modelEl = document.querySelector("#model");
         const exampleTarget = document.querySelector("#example-target");
         const modelInfoEl = document.getElementById("model-info");
-        const models = ["minecraft_chest", "spider_man"];
         const textBox = document.getElementById("text-box");
 
-
-        // Listen for the mindar-target-detected event
+        // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
-          console.log("Loading random model...");
           
-          const randomModel = models[Math.floor(Math.random() * models.length)];
-          console.log("Selected Model: ", randomModel);
+          // Show the info box
+          modelInfoEl.textContent = "Minecraft Chest rendered";
+          textBox.style.display = 'block';
+        });
 
-          // modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-
-          if (randomModel === "minecraft_chest") {
-            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-            modelEl.setAttribute("position", "2 0 0");
-            modelEl.setAttribute("scale", "20 20 20");
-            modelInfoEl.textContent = "minecraft_chest rendered";
-          } else if (randomModel === "spider_man") {
-            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-            modelEl.setAttribute("position", "0 -3 -9");
-            modelEl.setAttribute("scale", "2 2 2");
-            modelInfoEl.textContent = "Spiderman rendered";
-          }
-          modelInfoEl.textContent = randomText;
+        // Listen for the target lost event (optional)
+        exampleTarget.addEventListener("targetLost", event => {
+          console.log("Target lost");
+          textBox.style.display = 'none';
         });
       });
     </script>
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const sceneEl = document.querySelector("a-scene");
-        const modelEl = document.querySelector("#model");
-        const exampleTarget = document.querySelector("#example-target");
-        const modelInfoEl = document.getElementById("model-info");
-        const models = ["Megaman", "spider_man"];
-        const textOptions = ["CONGRATZZ U WON SOMETHING", "UNFORTUNATELY", "TRY AGAIN NEXT TIME", "REFRESH PLEASE", "HAVE FUN"];
-        const textBox = document.getElementById("text-box");
-
-
-        // Listen for the mindar-target-detected event
-        exampleTarget.addEventListener("targetFound", event => {
-          console.log("Target detected:");
-          console.log("Loading random model...");
-          
-          const randomModel = models[Math.floor(Math.random() * models.length)];
-          console.log("Selected Model: ", randomModel);
-
-          // modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-
-          if (randomModel === "Megaman") {
-            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-            modelEl.setAttribute("position", "0 -0.5 0");
-            modelEl.setAttribute("scale", "3.5 3.5 3.5");
-            // modelInfoEl.textContent = "Megaman rendered";
-          } else if (randomModel === "spider_man") {
-            modelEl.setAttribute("gltf-model", `./static/3D-file/glb/${randomModel}.glb`);
-            modelEl.setAttribute("position", "0 -3 -9");
-            modelEl.setAttribute("scale", "2 2 2");
-            // modelInfoEl.textContent = "Spiderman rendered";
-          }
-          // Set random text content
-          const randomText = textOptions[Math.floor(Math.random() * textOptions.length)];
-          modelInfoEl.textContent = randomText;
-
-          textBox.style.display = "block";
-        });
-      });
-    </script> -->
   </body>
 </html>
