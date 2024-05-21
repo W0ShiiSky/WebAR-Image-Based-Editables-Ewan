@@ -29,16 +29,16 @@
 
 
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
-      
-      <div class="fortune-slip" id="fortuneSlip"></div>
-      
+
       <a-assets>
         <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest.glb"></a-asset-item>
       </a-assets>
 
-      <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
-        <a-gltf-model id="fortuneCookie" src="#minecraft_chest" rotation="0 -90 0 " position="0 0 0" scale="0.005 0.005 0.005" animation-mixer></a-gltf-model>
+      <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
+        <a-gltf-model id="minecraft_chest" src="#minecraft_chest" rotation="0 -90 0 " position="0 0 0" scale="0.005 0.005 0.005" animation-mixer></a-gltf-model>
       </a-entity>
+
+      <div class="fortune-slip" id="fortuneSlip"></div>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
 
@@ -70,8 +70,9 @@
         ];
         
         // Hide the fortune cookie initially
-        const fortuneCookie = document.getElementById('fortuneCookie');
-        fortuneCookie.style.display = "none";
+        const minecraft_chest = document.getElementById('minecraft_chest');
+        minecraft_chest.style.display = "none";
+        minecraft_chest.classList.add('shaking'); // Add the shaking class
 
         // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
@@ -79,9 +80,7 @@
           console.log("Loading random model...");
           
           // Show the fortune cookie after the target is found
-          fortuneCookie.style.display = "block";
-          
-          fireConfetti();
+          minecraft_chest.style.display = "block";
         });
         
         // Function for confetti
@@ -115,7 +114,10 @@
           fortuneSlip.textContent = randomFortune;
 
           // Set timeout to add 'cracked' class after 1 second
-          function fireConfetti(){
+          setTimeout(() => {
+            minecraft_chest.classList.remove('shaking'); // Remove the shaking class
+            minecraft_chest.classList.add('cracked');
+
             // Trigger confetti effect
             fire(0.25, {
               spread: 50,
@@ -143,7 +145,8 @@
               spread: 140,
               startVelocity: 45,
             });
-          }
+
+          }, 1000);
           const uiOverlay = document.getElementById('UI-overlay');
           uiOverlay.style.display = 'none';
         }
