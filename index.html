@@ -41,18 +41,28 @@
     document.addEventListener("DOMContentLoaded", function () {
       const exampleTarget = document.querySelector("#example-target");
       const cowTiger = document.getElementById("cowTiger");
+      let isObjectVisible = false;
   
-      // Listen for the target found event
-      exampleTarget.addEventListener("targetFound", event => {
-        console.log("Target detected:");
-        console.log("Loading 3D object...");
+      // Function to show the 3D object
+      function showCowTiger() {
+        if (!isObjectVisible) {
+          console.log("Loading 3D object...");
+          cowTiger.setAttribute("visible", "true");
+          isObjectVisible = true;
+          console.log("3D object shown");
+        }
+      }
   
-        // Show the 3D object after the target is found
-        cowTiger.setAttribute("visible", "true");
-        console.log("3D object shown");
+      // Listen for the target found event to show the object
+      exampleTarget.addEventListener("targetFound", showCowTiger);
+  
+      // Ignore the target lost event to keep the object visible
+      exampleTarget.addEventListener("targetLost", event => {
+        console.log("Ignoring target lost event.");
       });
     });
   </script>
+  
   
 </body>
 </html>
