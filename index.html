@@ -28,11 +28,11 @@
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
       <a-assets>
-        <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest.glb"></a-asset-item>
+        <a-asset-item id="cow_tiger" src="./static/3D-file/glb/cow_tiger.glb"></a-asset-item>
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">
-        <a-gltf-model id="minecraftChest" src="#minecraft_chest" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005" animation-mixer></a-gltf-model>
+        <a-gltf-model id="cowTiger" src="#cow_tiger" rotation="0 0 0" position="0 0 0" scale="1 1 1" animation-mixer></a-gltf-model>
       </a-entity>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 30; objects: .clickable"></a-camera>
@@ -42,81 +42,30 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const exampleTarget = document.querySelector("#example-target");
-        const minecraftChest = document.getElementById("minecraftChest");
-
-        // Hide the Poké Ball initially
-        minecraftChest.setAttribute("visible", "false");
-
+        const cowTiger = document.getElementById("cowTiger");
+  
+        // Hide the 3D object initially
+        cowTiger.setAttribute("visible", "false");
+  
         // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
-          console.log("Loading Poké Ball...");
-
-          // Show the Poké Ball after the target is found
-          minecraftChest.setAttribute("visible", "true");
-
-          exampleTarget.removeAttribute("mindar-image-target");
-
-          // Set the model to remain visible
-          minecraftChest.setAttribute("keep-visible", "true");
+          console.log("Loading 3D object...");
+  
+          // Show the 3D object after the target is found
+          cowTiger.setAttribute("visible", "true");
+  
+          // Prevent the object from being hidden again
+          exampleTarget.removeEventListener("targetLost", hideCowTiger);
         });
-        
-        // Function for confetti
-        const count = 200;
-        const defaults = { origin: { y: 0.7 } };
-
-        function fire(particleRatio, opts) {
-          const spread = Math.random() * 360; // Random spread angle between 0 and 360
-          const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
-          confetti(Object.assign({}, defaults, opts, {
-            particleCount: Math.floor(count * particleRatio),
-            spread: spread,
-            startVelocity: startVelocity,
-          }));
+  
+        // Hide function to remove the event listener when target is lost
+        function hideCowTiger() {
+          cowTiger.setAttribute("visible", "false");
         }
-        
-        let hasClicked = false; // Flag to prevent multiple clicks
-
-        // Listen for both click and touchstart events on the scene
-        document.querySelector("a-scene").addEventListener("click", handleInteraction);
-        document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
-
-        // Function to handle interaction (click or touch)
-        function handleInteraction(){
-          if (hasClicked) return; // If already clicked, do nothing
-          hasClicked = true; // Set flag to true after the first click
-
-          // Trigger confetti effect
-          fire(0.25, {
-            spread: 50,
-            startVelocity: 55,
-          });
-
-          fire(0.2, {
-            spread: 100,
-          });
-
-          fire(0.35, {
-            spread: 150,
-            decay: 0.91,
-            scalar: 0.8,
-          });
-
-          fire(0.1, {
-            spread: 150,
-            startVelocity: 25,
-            decay: 0.92,
-            scalar: 1.2,
-          });
-
-          fire(0.1, {
-            spread: 140,
-            startVelocity: 45,
-          });
-
-          const uiOverlay = document.getElementById('UI-overlay');
-          uiOverlay.style.display = 'none';
-        }
+  
+        // Listen for the target lost event to hide the object
+        exampleTarget.addEventListener("targetLost", hideCowTiger);
       });
     </script>
   </body>
