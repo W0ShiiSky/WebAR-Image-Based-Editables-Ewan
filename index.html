@@ -55,21 +55,21 @@
           }
         }
     
-        // Function to hide the 3D object
-        function hideCowTiger() {
-          if (isObjectVisible) {
-            console.log("Hiding 3D object...");
-            cowTiger.setAttribute("visible", "false");
-            isObjectVisible = false;
-            console.log("3D object hidden");
-          }
-        }
+        // // Function to hide the 3D object
+        // function hideCowTiger() {
+        //   if (isObjectVisible) {
+        //     console.log("Hiding 3D object...");
+        //     cowTiger.setAttribute("visible", "false");
+        //     isObjectVisible = false;
+        //     console.log("3D object hidden");
+        //   }
+        // }
     
         // Listen for the target found event to show the object
         exampleTarget.addEventListener("targetFound", showCowTiger);
     
         // Listen for the target lost event to hide the object
-        exampleTarget.addEventListener("targetLost", hideCowTiger);
+        // exampleTarget.addEventListener("targetLost", hideCowTiger);
       });
     </script>
     
