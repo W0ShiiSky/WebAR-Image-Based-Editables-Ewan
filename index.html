@@ -99,9 +99,9 @@
         
         let hasClicked = false; // Flag to prevent multiple clicks
 
-        // Listen for both click and touchstart events on the scene
-        document.querySelector("a-scene").addEventListener("click", handleInteraction);
-        document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
+        // // Listen for both click and touchstart events on the scene
+        // document.querySelector("a-scene").addEventListener("click", handleInteraction);
+        // document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
 
         // Function to handle interaction (click or touch)
         function handleInteraction(){
@@ -117,8 +117,7 @@
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
             minecraftChest.classList.remove("shaking"); // Remove the shaking class
-            minecraftChest.classList.add("cracked");
-
+            
             // Trigger confetti effect
             fire(0.25, {
               spread: 50,
