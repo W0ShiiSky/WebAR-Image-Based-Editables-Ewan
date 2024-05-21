@@ -112,6 +112,7 @@
           const fortuneSlip = document.getElementById('fortuneSlip');
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
           fortuneSlip.textContent = randomFortune;
+          console.log(randomFortune);
 
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
