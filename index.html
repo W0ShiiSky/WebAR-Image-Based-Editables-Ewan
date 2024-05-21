@@ -43,33 +43,33 @@
       document.addEventListener("DOMContentLoaded", function () {
         const exampleTarget = document.querySelector("#example-target");
         const cowTiger = document.getElementById("cowTiger");
-        let isObjectVisible = false;
     
-        // Function to show the 3D object
-        function showCowTiger() {
-          if (!isObjectVisible) {
-            console.log("Loading 3D object...");
-            cowTiger.setAttribute("visible", "true");
-            isObjectVisible = true;
-            console.log("3D object shown");
-          }
+        // Hide the 3D object initially
+        cowTiger.setAttribute("visible", "false");
+        console.log("3D object hidden initially");
+    
+        // Listen for the target found event
+        exampleTarget.addEventListener("targetFound", event => {
+          console.log("Target detected:");
+          console.log("Loading 3D object...");
+    
+          // Show the 3D object after the target is found
+          cowTiger.setAttribute("visible", "true");
+          console.log("3D object shown");
+    
+          // Remove the targetLost event listener to keep the object visible
+          exampleTarget.removeEventListener("targetLost", hideCowTiger);
+        });
+    
+        // Function to hide the 3D object
+        function hideCowTiger() {
+          console.log("Hiding 3D object...");
+          cowTiger.setAttribute("visible", "false");
+          console.log("3D object hidden");
         }
     
-        // // Function to hide the 3D object
-        // function hideCowTiger() {
-        //   if (isObjectVisible) {
-        //     console.log("Hiding 3D object...");
-        //     cowTiger.setAttribute("visible", "false");
-        //     isObjectVisible = false;
-        //     console.log("3D object hidden");
-        //   }
-        // }
-    
-        // Listen for the target found event to show the object
-        exampleTarget.addEventListener("targetFound", showCowTiger);
-    
-        // Listen for the target lost event to hide the object
-        // exampleTarget.addEventListener("targetLost", hideCowTiger);
+        // Optionally, if you want to manually hide the object, you can call hideCowTiger()
+        // hideCowTiger();
       });
     </script>
     
