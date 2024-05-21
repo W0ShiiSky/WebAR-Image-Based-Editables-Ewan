@@ -64,13 +64,14 @@
         "A windfall of good fortune is heading your way."
       ];
       
-      minecraftChest.object3D.visible = true;
+      minecraftChest.object3D.visible = false;
+      console.log("Initial visibility (should be false):", minecraftChest.object3D.visible);
 
       // Listen for the target found event
       exampleTarget.addEventListener("targetFound", event => {
-        console.log("Target detected:");
-        console.log("Loading model...");
+        console.log("Target detected");
         minecraftChest.object3D.visible = true; // Ensure the model is visible
+        console.log("Visibility after target found (should be true):", minecraftChest.object3D.visible);
       });
 
       // Function for confetti
@@ -98,7 +99,7 @@
         const fortuneSlip = document.getElementById("fortuneSlip");
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         fortuneSlip.textContent = randomFortune;
-        console.log(randomFortune);
+        console.log("Random fortune:", randomFortune);
 
         // Trigger confetti effect
         fire(0.25, { spread: 50, startVelocity: 55 });
