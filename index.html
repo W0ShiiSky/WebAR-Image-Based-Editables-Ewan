@@ -38,6 +38,31 @@
   </a-scene>
 
   <script>
+    // Define the handleInteraction function globally
+    function handleInteraction() {
+      if (hasClicked) return; // If already clicked, do nothing
+      hasClicked = true; // Set flag to true after the first click
+
+      // Display the fortune slip
+      const fortuneSlip = document.getElementById("fortuneSlip");
+      const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+      fortuneSlip.textContent = randomFortune;
+      console.log("Random fortune:", randomFortune);
+
+      // Trigger confetti effect
+      fire(0.25, { spread: 50, startVelocity: 55 });
+      fire(0.2, { spread: 100 });
+      fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
+      fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+      fire(0.1, { spread: 140, startVelocity: 45 });
+
+      // Hide the model
+      minecraftChest.object3D.visible = false;
+
+      const uiOverlay = document.getElementById('UI-overlay');
+      uiOverlay.style.display = 'none';
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
       const exampleTarget = document.querySelector("#example-target");
       const minecraftChest = document.querySelector("#minecraft_chest_model");
@@ -95,6 +120,7 @@
         const spread = Math.random() * 360; // Random spread angle between 0 and 360
         const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
         confetti(Object.assign({}, defaults, opts, {
+         
           particleCount: Math.floor(count * particleRatio),
           spread: spread,
           startVelocity: startVelocity,
@@ -103,31 +129,10 @@
 
       let hasClicked = false; // Flag to prevent multiple clicks
 
-      // Function to handle interaction (click or touch)
-        function handleInteraction() {
-          if (hasClicked) return; // If already clicked, do nothing
-          hasClicked = true; // Set flag to true after the first click
-
-          // Display the fortune slip
-          const fortuneSlip = document.getElementById("fortuneSlip");
-          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-          fortuneSlip.textContent = randomFortune;
-          console.log("Random fortune:", randomFortune);
-
-          // Trigger confetti effect
-          fire(0.25, { spread: 50, startVelocity: 55 });
-          fire(0.2, { spread: 100 });
-          fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
-          fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-          fire(0.1, { spread: 140, startVelocity: 45 });
-
-          // Hide the model
-          minecraftChest.object3D.visible = false;
-
-          const uiOverlay = document.getElementById('UI-overlay');
-          uiOverlay.style.display = 'none';
-        }
-      });
+      // Add event listeners for interaction (click or touch)
+      document.querySelector("a-scene").addEventListener("click", handleInteraction);
+      document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
+    });
   </script>
 </body>
 </html>
