@@ -51,7 +51,7 @@
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
-        <a-gltf-model id="model" src="#minecraft_chest" rotation="0 0 0 " center-model></a-gltf-model>
+        <a-gltf-model id="model" src="#minecraft_chest" rotation="0 0 0 " position="0 0 0" scale="1 1 1" center-model></a-gltf-model>
       </a-entity>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -60,27 +60,26 @@
     <script>
       AFRAME.registerComponent("center-model", {
         init: function () {
-          const model = this.el.getObject3D("mesh");
-          if (model) {
-            this.centerModel();
-          } else {
-            this.el.addEventListener("model-loaded", () => {
-              this.centerModel();
-            });
-          }
+          this.el.addEventListener("model-loaded", this.centerModel.bind(this));
         },
         centerModel: function () {
           const obj = this.el.getObject3D("mesh");
+          if (!obj) return;
+
+          // Compute bounding box
           const box = new THREE.Box3().setFromObject(obj);
           const center = box.getCenter(new THREE.Vector3());
+
+          // Adjust the position of the model to center it
+          obj.position.x -= center.x;
+          obj.position.y -= center.y;
+          obj.position.z -= center.z;
+
+          // Scale the model to fit into the scene (optional)
           const size = box.getSize(new THREE.Vector3());
-
-          // Adjust model's position and scale to center it
-          obj.position.x += (obj.position.x - center.x);
-          obj.position.y += (obj.position.y - center.y);
-          obj.position.z += (obj.position.z - center.z);
-
-          this.el.setObject3D("mesh", obj);
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 1 / maxDim;
+          obj.scale.set(scale, scale, scale);
         }
       });
 
