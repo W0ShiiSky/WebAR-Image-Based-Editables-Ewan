@@ -74,6 +74,12 @@
         console.log("Visibility after target found (should be true):", minecraftChest.object3D.visible);
       });
 
+      // Prevent the model from hiding again when the target is lost
+      exampleTarget.addEventListener("targetLost", event => {
+        console.log("Target lost, but keeping the model visible");
+        minecraftChest.object3D.visible = true; // Ensure the model remains visible
+      });
+
       // Function for confetti
       const count = 200;
       const defaults = { origin: { y: 0.7 } };
