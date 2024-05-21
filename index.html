@@ -41,7 +41,7 @@
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
-        <a-gltf-model id="model" src="mindcraft_chest" rotation="0 0 0 " position="0 -3 -9" scale="2 2 2" animation-mixer></a-gltf-model>
+        <a-gltf-model id="model" src="mindcraft_chest" rotation="0 0 0 " position="0 0 0" scale="10 10 10" animation-mixer></a-gltf-model>
       </a-entity>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -125,7 +125,7 @@
           // Display the fortune slip and crack the fortune cookie
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
           alert(randomFortune); // Display the fortune message
-          
+
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
             fortuneCookie.classList.remove('shaking'); // Remove the shaking class
