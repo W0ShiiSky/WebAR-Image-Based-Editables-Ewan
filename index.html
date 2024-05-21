@@ -128,11 +128,11 @@
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
       <a-assets>
-        <a-asset-item id="chinese_dragon_trim" src="./static/3D-file/gltf/chinese_dragon_trim/test1.gltf"></a-asset-item>
+        <a-asset-item id="Mcdonalds_cube" src="./static/3D-file/glb/Mcdonalds_cube.glb"></a-asset-item>
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
-        <a-gltf-model src="#chinese_dragon_trim" rotation="0 0 0 " position="0 -0.5 0.1" scale="0.0005 0.0005 0.0005" animation-mixer></a-gltf-model>
+        <a-gltf-model src="#Mcdonalds_cube" rotation="0 0 0 " position="0 0 0" scale="1 1 1" animation-mixer></a-gltf-model>
       </a-entity>
 
       <!-- <a-entity id="example-target" mindar-image-target="targetIndex: 2">
@@ -183,34 +183,34 @@
         });
 
 
-        AFRAME.registerComponent("piganimate-png", {
-          init: function() {
-            // load the .pngs
-            let loader = new THREE.TextureLoader()
-            this.pngArray =[];
+        // AFRAME.registerComponent("piganimate-png", {
+        //   init: function() {
+        //     // load the .pngs
+        //     let loader = new THREE.TextureLoader()
+        //     this.pngArray =[];
 
-            const numFrames=5;
+        //     const numFrames=5;
 
-            for (let i = 0; i < numFrames; i++) {
-              const frameNumber = i.toString().padStart(2,'0');
-              const imagePath = `static/image-animation/piganimate/frame_${i}_delay-0.2s.png`;
-              this.pngArray.push(loader.load(imagePath));
-              console.log('Loaded image: ${imagePath}');
-            }
+        //     for (let i = 0; i < numFrames; i++) {
+        //       const frameNumber = i.toString().padStart(2,'0');
+        //       const imagePath = `static/image-animation/piganimate/frame_${i}_delay-0.2s.png`;
+        //       this.pngArray.push(loader.load(imagePath));
+        //       console.log('Loaded image: ${imagePath}');
+        //     }
 
-            this.el.addEventListener('loaded', e => {
-              let mesh = this.el.getObject3D("mesh")
-              this.material = mesh.material
+        //     this.el.addEventListener('loaded', e => {
+        //       let mesh = this.el.getObject3D("mesh")
+        //       this.material = mesh.material
 
-              var i = 0
-              this.id = setInterval(e => {
-                if (i >= this.pngArray.length) i = 0;
-                this.material.map = this.pngArray[i++]
-                this.material.needsUpdate = true
-              }, 155)
-            });
-          }
-        });
+        //       var i = 0
+        //       this.id = setInterval(e => {
+        //         if (i >= this.pngArray.length) i = 0;
+        //         this.material.map = this.pngArray[i++]
+        //         this.material.needsUpdate = true
+        //       }, 155)
+        //     });
+        //   }
+        // });
 
         // AFRAME.registerComponent("dragonanimate-png", {
         //   init: function() {
