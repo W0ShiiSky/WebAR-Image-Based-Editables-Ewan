@@ -1,79 +1,50 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0" />
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-  </head>
-  <body style="margin: 0; background-color: black;">
-    <!-- id="UI-overlay" fixes the issue where the AR content gets cutoff at where the buttons are -->
-    <!-- display flex is to prevent the UI overlay from disappearing when displaying AR content. Can be removed -->
-    <div id="UI-overlay" style="max-height: 100%; max-width: 100%;">
-      <div id="UI-placement">
-        <!-- scanning box crosshair copied from MindAR example -->
-        <div id="scanning-overlay" class="mindar-ui-scanning">
-          <div class="scanning">
-            <div class="inner" id="scanBoxSize">
-              <div class="scanline"></div>
-            </div>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0" />
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+</head>
+<body style="margin: 0; background-color: black;">
+  <div id="UI-overlay" style="max-height: 100%; max-width: 100%;">
+    <div id="UI-placement">
+      <div id="scanning-overlay" class="mindar-ui-scanning">
+        <div class="scanning">
+          <div class="inner" id="scanBoxSize">
+            <div class="scanline"></div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
+  <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
-      <a-assets>
-        <a-asset-item id="cow_tiger" src="./static/3D-file/glb/cow_tiger.glb"></a-asset-item>
-      </a-assets>
+    <a-assets>
+      <a-asset-item id="cow_tiger" src="./static/3D-file/glb/cow_tiger.glb"></a-asset-item>
+    </a-assets>
 
-      <a-entity id="example-target" mindar-image-target="targetIndex: 0">
-        <a-gltf-model id="cowTiger" src="#cow_tiger" rotation="0 0 0" position="0 0 0" scale="1 1 1" animation-mixer></a-gltf-model>
-      </a-entity>
+    <a-entity id="example-target" mindar-image-target="targetIndex: 0">
+      <a-gltf-model id="cowTiger" src="#cow_tiger" rotation="0 0 0" position="0 0 0" scale="1 1 1" animation-mixer></a-gltf-model>
+    </a-entity>
 
-      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 30; objects: .clickable"></a-camera>
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 30; objects: .clickable"></a-camera>
 
-    </a-scene>
-    
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const exampleTarget = document.querySelector("#example-target");
-        const cowTiger = document.getElementById("cowTiger");
-    
-        // Hide the 3D object initially
-        cowTiger.setAttribute("visible", "false");
-        console.log("3D object hidden initially");
-    
-        // Listen for the target found event
-        exampleTarget.addEventListener("targetFound", event => {
-          console.log("Target detected:");
-          console.log("Loading 3D object...");
-    
-          // Show the 3D object after the target is found
-          cowTiger.setAttribute("visible", "true");
-          console.log("3D object shown");
-    
-          // Remove the targetLost event listener to keep the object visible
-          exampleTarget.removeEventListener("targetLost", hideCowTiger);
-        });
-    
-        // Function to hide the 3D object
-        function hideCowTiger() {
-          console.log("Hiding 3D object...");
-          cowTiger.setAttribute("visible", "false");
-          console.log("3D object hidden");
-        }
-    
-        // Optionally, if you want to manually hide the object, you can call hideCowTiger()
-        // hideCowTiger();
-      });
-    </script>
-    
-    
-    
-  </body>
+  </a-scene>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const cowTiger = document.getElementById("cowTiger");
+
+      // Make the 3D object visible initially
+      cowTiger.setAttribute("visible", "true");
+      console.log("CowTiger 3D object is always visible");
+    });
+  </script>
+</body>
 </html>
