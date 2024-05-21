@@ -70,9 +70,9 @@
         ];
         
         // Hide the fortune cookie initially
-        const minecraft_chest = document.getElementById('minecraft_chest');
+        const minecraftChest = document.getElementById("minecraft_chest");
         // minecraft_chest.style.display = "none";
-        minecraft_chest.classList.add('shaking'); // Add the shaking class
+        minecraftChest.classList.add("shaking"); // Add the shaking class
 
         // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
@@ -80,7 +80,7 @@
           console.log("Loading random model...");
           
           // Show the fortune cookie after the target is found
-          minecraft_chest.style.display = "block";
+          minecraftChest.style.display = "block";
         });
         
         // Function for confetti
@@ -109,15 +109,15 @@
           hasClicked = true; // Set flag to true after the first click
 
           // Display the fortune slip and crack the fortune cookie
-          const fortuneSlip = document.getElementById('fortuneSlip');
+          const fortuneSlip = document.getElementById("fortuneSlip");
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
           fortuneSlip.textContent = randomFortune;
           console.log(randomFortune);
 
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
-            minecraft_chest.classList.remove('shaking'); // Remove the shaking class
-            minecraft_chest.classList.add('cracked');
+            minecraftChest.classList.remove("shaking"); // Remove the shaking class
+            minecraftChest.classList.add("cracked");
 
             // Trigger confetti effect
             fire(0.25, {
@@ -151,6 +151,9 @@
           const uiOverlay = document.getElementById('UI-overlay');
           uiOverlay.style.display = 'none';
         }
+
+        document.querySelector("a-scene").addEventListener("click", handleInteraction);
+        document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
       });
     </script>
   </body>
