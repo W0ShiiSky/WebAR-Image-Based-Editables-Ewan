@@ -58,19 +58,19 @@
 
     </a-scene>
     <script>
-      AFRAME.registerComponent('center-model', {
+      AFRAME.registerComponent("center-model", {
         init: function () {
-          const model = this.el.getObject3D('mesh');
+          const model = this.el.getObject3D("mesh");
           if (model) {
             this.centerModel();
           } else {
-            this.el.addEventListener('model-loaded', () => {
+            this.el.addEventListener("model-loaded", () => {
               this.centerModel();
             });
           }
         },
         centerModel: function () {
-          const obj = this.el.getObject3D('mesh');
+          const obj = this.el.getObject3D("mesh");
           const box = new THREE.Box3().setFromObject(obj);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
@@ -80,7 +80,7 @@
           obj.position.y += (obj.position.y - center.y);
           obj.position.z += (obj.position.z - center.z);
 
-          this.el.setObject3D('mesh', obj);
+          this.el.setObject3D("mesh", obj);
         }
       });
 
