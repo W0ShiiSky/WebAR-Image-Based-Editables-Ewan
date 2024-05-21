@@ -41,11 +41,11 @@
     <!-- A-Frame scene with MindAR -->
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
       <a-assets>
-        <a-asset-item id="megaman" src="./static/3D-file/glb/Megaman.glb"></a-asset-item>
+        <a-asset-item id="dragon" src="./static/3D-file/glb/dragon.glb"></a-asset-item>
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
-        <a-gltf-model id="model" src="#megaman" rotation="0 0 0" position="0 0 0" scale="1 1 1"></a-gltf-model>
+        <a-gltf-model id="model" src="#dragon" rotation="0 0 0" position="0 0 0" scale="1 1 1"></a-gltf-model>
       </a-entity>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 50; objects: .clickable"></a-camera>
