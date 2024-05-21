@@ -39,12 +39,20 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      const exampleTarget = document.querySelector("#example-target");
       const cowTiger = document.getElementById("cowTiger");
-
-      // Make the 3D object visible initially
-      cowTiger.setAttribute("visible", "true");
-      console.log("CowTiger 3D object is always visible");
+  
+      // Listen for the target found event
+      exampleTarget.addEventListener("targetFound", event => {
+        console.log("Target detected:");
+        console.log("Loading 3D object...");
+  
+        // Show the 3D object after the target is found
+        cowTiger.setAttribute("visible", "true");
+        console.log("3D object shown");
+      });
     });
   </script>
+  
 </body>
 </html>
