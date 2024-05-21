@@ -51,38 +51,13 @@
       </a-assets>
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
-        <a-gltf-model id="model" src="#minecraft_chest" rotation="0 0 0 " position="0 0 0" scale="1 1 1" center-model></a-gltf-model>
+        <a-gltf-model id="model" src="#minecraft_chest" rotation="0 0 0 " position="0 -0.5 18" scale="0.12 0.12 0.12" animation-mixer></a-gltf-model>
       </a-entity>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
 
     </a-scene>
     <script>
-      AFRAME.registerComponent("center-model", {
-        init: function () {
-          this.el.addEventListener("model-loaded", this.centerModel.bind(this));
-        },
-        centerModel: function () {
-          const obj = this.el.getObject3D("mesh");
-          if (!obj) return;
-
-          // Compute bounding box
-          const box = new THREE.Box3().setFromObject(obj);
-          const center = box.getCenter(new THREE.Vector3());
-
-          // Adjust the position of the model to center it
-          obj.position.x -= center.x;
-          obj.position.y -= center.y;
-          obj.position.z -= center.z;
-
-          // Scale the model to fit into the scene (optional)
-          const size = box.getSize(new THREE.Vector3());
-          const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 1 / maxDim;
-          obj.scale.set(scale, scale, scale);
-        }
-      });
-
       document.addEventListener("DOMContentLoaded", function () {
         const exampleTarget = document.querySelector("#example-target");
         const modelInfoEl = document.getElementById("model-info");
