@@ -29,17 +29,18 @@
     </a-assets>
 
     <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
-      <a-gltf-model id="minecraft_chest_model" src="#minecraft_chest" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005" animation-mixer></a-gltf-model>
+      <a-gltf-model id="minecraft_chest_model" src="#minecraft_chest" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005"></a-gltf-model>
     </a-entity>
 
     <div class="fortune-slip" id="fortuneSlip"></div>
 
-    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10; objects: .clickable"></a-camera>
   </a-scene>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const exampleTarget = document.querySelector("#example-target");
+      const minecraftChest = document.querySelector("#minecraft_chest_model");
       const fortunes = [
         "Success is on your horizon.",
         "Good news will come to you by mail.",
@@ -63,8 +64,7 @@
         "A windfall of good fortune is heading your way."
       ];
       
-      const minecraftChest = document.getElementById("minecraft_chest_model");
-      minecraftChest.classList.add("shaking"); // Add the shaking class
+      minecraftChest.object3D.visible = false;
 
       // Listen for the target found event
       exampleTarget.addEventListener("targetFound", event => {
@@ -94,24 +94,18 @@
         if (hasClicked) return; // If already clicked, do nothing
         hasClicked = true; // Set flag to true after the first click
 
-        // Display the fortune slip and stop the model shaking
+        // Display the fortune slip
         const fortuneSlip = document.getElementById("fortuneSlip");
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         fortuneSlip.textContent = randomFortune;
         console.log(randomFortune);
 
-        // Set timeout to remove 'shaking' class after 1 second
-        setTimeout(() => {
-          minecraftChest.classList.remove("shaking"); // Remove the shaking class
-
-          // Trigger confetti effect
-          fire(0.25, { spread: 50, startVelocity: 55 });
-          fire(0.2, { spread: 100 });
-          fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
-          fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-          fire(0.1, { spread: 140, startVelocity: 45 });
-
-        }, 1000);
+        // Trigger confetti effect
+        fire(0.25, { spread: 50, startVelocity: 55 });
+        fire(0.2, { spread: 100 });
+        fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        fire(0.1, { spread: 140, startVelocity: 45 });
 
         const uiOverlay = document.getElementById('UI-overlay');
         uiOverlay.style.display = 'none';
