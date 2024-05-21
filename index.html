@@ -212,34 +212,34 @@
           }
         });
 
-        AFRAME.registerComponent("dragonanimate-png", {
-          init: function() {
-            // load the .pngs
-            let loader = new THREE.TextureLoader()
-            this.pngArray =[];
+        // AFRAME.registerComponent("dragonanimate-png", {
+        //   init: function() {
+        //     // load the .pngs
+        //     let loader = new THREE.TextureLoader()
+        //     this.pngArray =[];
 
-            const numFrames=48;
+        //     const numFrames=48;
 
-            for (let i = 0; i < numFrames; i++) {
-              const frameNumber = i.toString().padStart(2,'0');
-              const imagePath = `static/image-animation/dragonanimate/frame_${frameNumber}_delay-0.04s.png`;
-              this.pngArray.push(loader.load(imagePath));
-              console.log('Loaded image: ${imagePath}');
-            }
+        //     for (let i = 0; i < numFrames; i++) {
+        //       const frameNumber = i.toString().padStart(2,'0');
+        //       const imagePath = `static/image-animation/dragonanimate/frame_${frameNumber}_delay-0.04s.png`;
+        //       this.pngArray.push(loader.load(imagePath));
+        //       console.log('Loaded image: ${imagePath}');
+        //     }
 
-            this.el.addEventListener('loaded', e => {
-              let mesh = this.el.getObject3D("mesh")
-              this.material = mesh.material
+        //     this.el.addEventListener('loaded', e => {
+        //       let mesh = this.el.getObject3D("mesh")
+        //       this.material = mesh.material
 
-              var i = 0
-              this.id = setInterval(e => {
-                if (i >= this.pngArray.length) i = 0;
-                this.material.map = this.pngArray[i++]
-                this.material.needsUpdate = true
-              }, 30)
-            });
-          }
-        });
+        //       var i = 0
+        //       this.id = setInterval(e => {
+        //         if (i >= this.pngArray.length) i = 0;
+        //         this.material.map = this.pngArray[i++]
+        //         this.material.needsUpdate = true
+        //       }, 30)
+        //     });
+        //   }
+        // });
 
       screen.orientation.addEventListener("change", () => {
         // window.location.reload();
