@@ -104,30 +104,30 @@
       let hasClicked = false; // Flag to prevent multiple clicks
 
       // Function to handle interaction (click or touch)
-      function handleInteraction() {
-        if (hasClicked) return; // If already clicked, do nothing
-        hasClicked = true; // Set flag to true after the first click
+        function handleInteraction() {
+          if (hasClicked) return; // If already clicked, do nothing
+          hasClicked = true; // Set flag to true after the first click
 
-        // Display the fortune slip
-        const fortuneSlip = document.getElementById("fortuneSlip");
-        const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-        fortuneSlip.textContent = randomFortune;
-        console.log("Random fortune:", randomFortune);
+          // Display the fortune slip
+          const fortuneSlip = document.getElementById("fortuneSlip");
+          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          fortuneSlip.textContent = randomFortune;
+          console.log("Random fortune:", randomFortune);
 
-        // Trigger confetti effect
-        fire(0.25, { spread: 50, startVelocity: 55 });
-        fire(0.2, { spread: 100 });
-        fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
-        fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-        fire(0.1, { spread: 140, startVelocity: 45 });
+          // Trigger confetti effect
+          fire(0.25, { spread: 50, startVelocity: 55 });
+          fire(0.2, { spread: 100 });
+          fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
+          fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+          fire(0.1, { spread: 140, startVelocity: 45 });
 
-        const uiOverlay = document.getElementById('UI-overlay');
-        uiOverlay.style.display = 'none';
-      }
+          // Hide the model
+          minecraftChest.object3D.visible = false;
 
-      document.querySelector("a-scene").addEventListener("click", handleInteraction);
-      document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
-    });
+          const uiOverlay = document.getElementById('UI-overlay');
+          uiOverlay.style.display = 'none';
+        }
+      });
   </script>
 </body>
 </html>
