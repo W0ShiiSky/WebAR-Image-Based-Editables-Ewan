@@ -63,21 +63,28 @@
         "You will achieve your goals with determination and perseverance.",
         "A windfall of good fortune is heading your way."
       ];
-      
+
       minecraftChest.object3D.visible = false;
+      let isModelVisible = false;
+
       console.log("Initial visibility (should be false):", minecraftChest.object3D.visible);
 
       // Listen for the target found event
       exampleTarget.addEventListener("targetFound", event => {
         console.log("Target detected");
-        minecraftChest.object3D.visible = true; // Ensure the model is visible
-        console.log("Visibility after target found (should be true):", minecraftChest.object3D.visible);
+        if (!isModelVisible) {
+          minecraftChest.object3D.visible = true; // Ensure the model is visible
+          isModelVisible = true; // Set the flag to true to keep the model visible
+          console.log("Visibility after target found (should be true):", minecraftChest.object3D.visible);
+        }
       });
 
       // Prevent the model from hiding again when the target is lost
       exampleTarget.addEventListener("targetLost", event => {
         console.log("Target lost, but keeping the model visible");
-        minecraftChest.object3D.visible = true; // Ensure the model remains visible
+        if (isModelVisible) {
+          minecraftChest.object3D.visible = true; // Ensure the model remains visible
+        }
       });
 
       // Function for confetti
