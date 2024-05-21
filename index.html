@@ -27,21 +27,16 @@
       </div>
     </div>
 
-    <!-- <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
+    <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
       <div class="cookie-left" id="cookieLeft"></div>
       <div class="cookie-right" id="cookieRight"></div>
     </div>
-    <div class="fortune-slip" id="fortuneSlip"></div> -->
+    <div class="fortune-slip" id="fortuneSlip"></div>
 
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
-      <a-assets>
-        <!-- Load your .glb model here -->
-        <a-asset-item id="mindcraft_chest" src="./static/3D-file/glb/minecraft_chest.glb"></a-asset-item>
-      </a-assets>
-
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
-        <a-gltf-model id="model" src="mindcraft_chest" rotation="0 0 0 " position="0 0 0" scale="10 10 10" animation-mixer></a-gltf-model>
+        <a-gltf-model id="model" rotation="0 0 0 " position="0 -3 -9" scale="2 2 2" animation-mixer></a-gltf-model>
       </a-entity>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -50,7 +45,6 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const exampleTarget = document.querySelector("#example-target");
-        const model = document.getElementById('model');
         const fortunes = [
           "Success is on your horizon.",
           "Good news will come to you by mail.",
@@ -73,14 +67,11 @@
           "You will achieve your goals with determination and perseverance.",
           "A windfall of good fortune is heading your way."
         ];
-
-        // Hide the fortune cookie model initially
-        model.setAttribute('visible', 'false');
         
         // Hide the fortune cookie initially
-        // const fortuneCookie = document.getElementById('fortuneCookie');
-        // fortuneCookie.style.display = "none";
-        // fortuneCookie.classList.add('shaking'); // Add the shaking class
+        const fortuneCookie = document.getElementById('fortuneCookie');
+        fortuneCookie.style.display = "none";
+        fortuneCookie.classList.add('shaking'); // Add the shaking class
 
         // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
@@ -88,9 +79,7 @@
           console.log("Loading random model...");
           
           // Show the fortune cookie after the target is found
-          // fortuneCookie.style.display = "block";
-          // Show the fortune cookie model after the target is found
-          model.setAttribute('visible', 'true');
+          fortuneCookie.style.display = "block";
         });
         
         // Function for confetti
@@ -119,12 +108,9 @@
           hasClicked = true; // Set flag to true after the first click
 
           // Display the fortune slip and crack the fortune cookie
-          // const fortuneSlip = document.getElementById('fortuneSlip');
-          // const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-          // fortuneSlip.textContent = randomFortune;
-          // Display the fortune slip and crack the fortune cookie
+          const fortuneSlip = document.getElementById('fortuneSlip');
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-          alert(randomFortune); // Display the fortune message
+          fortuneSlip.textContent = randomFortune;
 
           // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
