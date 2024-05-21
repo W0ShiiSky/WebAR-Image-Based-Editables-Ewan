@@ -71,6 +71,13 @@
           console.log("Target lost");
           textBox.style.display = 'none';
         });
+
+        // Ensure model is loaded before playing animation
+        const model = document.querySelector("#model");
+        model.addEventListener("model-loaded", () => {
+          console.log("Model loaded, starting animation");
+          model.setAttribute("animation-mixer", "");
+        });
       });
     </script>
   </body>
