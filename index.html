@@ -44,7 +44,6 @@
         const exampleTarget = document.querySelector("#example-target");
         const cowTiger = document.getElementById("cowTiger");
         let isObjectVisible = false;
-        let visibilityTimeout;
     
         // Function to show the 3D object
         function showCowTiger() {
@@ -53,9 +52,6 @@
             cowTiger.setAttribute("visible", "true");
             isObjectVisible = true;
             console.log("3D object shown");
-    
-            // Set a timeout to hide the object after 5 seconds (adjust as needed)
-            visibilityTimeout = setTimeout(hideCowTiger, 5000);
           }
         }
     
@@ -66,9 +62,6 @@
             cowTiger.setAttribute("visible", "false");
             isObjectVisible = false;
             console.log("3D object hidden");
-    
-            // Clear the timeout to prevent hiding the object if it's shown again quickly
-            clearTimeout(visibilityTimeout);
           }
         }
     
@@ -79,6 +72,7 @@
         exampleTarget.addEventListener("targetLost", hideCowTiger);
       });
     </script>
+    
     
     
   </body>
