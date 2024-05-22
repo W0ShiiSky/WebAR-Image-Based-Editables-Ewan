@@ -301,7 +301,7 @@
   100% { transform: rotate(0deg); }
 } */
 
-body {
+/* body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -369,4 +369,4 @@ body {
 }
 .shaking {
   animation: shake 0.5s ease-in-out infinite;
-}
+} */
