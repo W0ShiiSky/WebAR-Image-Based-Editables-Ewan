@@ -76,6 +76,7 @@
         const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
         minecraftChestAnimate.style.display = "none";
         minecraftChest.classList.add("shaking"); // Add the shaking class
+        minecraftChestAnimate.setAttribute("visible", "false");
 
         // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
