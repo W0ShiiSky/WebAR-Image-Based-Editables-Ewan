@@ -1,219 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0" />
-  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-  <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
-  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-color: #f0e68c;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    .fortune-cookie {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 150px;
-      height: 150px;
-      cursor: pointer;
-      transition: transform 0.5s;
-      perspective: 1000px;
-    }
-
-    .cookie-left, .cookie-right {
-      position: absolute;
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      background-color: #d2691e;
-      transition: transform 0.5s;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset -5px -5px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .cookie-left {
-      transform: rotateY(-45deg) rotateX(25deg);
-      transform-origin: 100% 50%;
-    }
-
-    .cookie-right {
-      transform: rotateY(45deg) rotateX(25deg);
-      transform-origin: 0% 50%;
-    }
-
-    .fortune-slip {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0) rotate(0deg);
-      opacity: 0;
-      background-color: white;
-      padding: 10px 20px;
-      border: 2px solid #d2691e;
-      border-radius: 5px;
-      transition: transform 1s 1s, opacity 1s 1s;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .cracked .cookie-left {
-      transform: rotateY(-90deg) rotateX(25deg) translateX(-50px);
-    }
-
-    .cracked .cookie-right {
-      transform: rotateY(90deg) rotateX(25deg) translateX(50px);
-    }
-
-    .cracked + .fortune-slip {
-      transform: translate(-50%, -50%) scale(1.2) rotate(360deg);
-      opacity: 1;
-    }
-
-    @keyframes shake {
-      0% { transform: rotate(0deg); }
-      25% { transform: rotate(-10deg); }
-      50% { transform: rotate(10deg); }
-      75% { transform: rotate(-10deg); }
-      100% { transform: rotate(0deg); }
-    }
-
-    .shaking {
-      animation: shake 0.5s ease-in-out infinite;
-    }
-  </style>
-</head>
-<body style="margin: 0; background-color: black;">
-  <div id="UI-overlay" style="max-height: 100%; max-width: 100%;">
-    <div id="UI-placement">
-      <div id="scanning-overlay" class="mindar-ui-scanning">
-        <div class="scanning">
-          <div class="inner" id="scanBoxSize">
-            <div class="scanline"></div>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0" />
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  </head>
+  <body style="margin: 0; background-color: black;">
+    <!-- id="UI-overlay" fixes the issue where the AR content gets cutoff at where the buttons are -->
+    <!-- display flex is to prevent the UI overlay from disappearing when displaying AR content. Can be removed -->
+    <div id="UI-overlay" style="max-height: 100%; max-width: 100%;">
+      <div id="UI-placement">
+        <!-- scanning box crosshair copied from MindAR example -->
+        <div id="scanning-overlay" class="mindar-ui-scanning">
+          <div class="scanning">
+            <div class="inner" id="scanBoxSize">
+              <div class="scanline"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="fortune-cookie" id="fortuneCookie" style="display: none;">
-    <div class="cookie-left" id="cookieLeft"></div>
-    <div class="cookie-right" id="cookieRight"></div>
-  </div>
-  <div class="fortune-slip" id="fortuneSlip"></div>
-  <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
-    <a-entity id="example-target" mindar-image-target="targetIndex: 0">
-      <a-gltf-model id="model" rotation="0 0 0" position="0 -3 -9" scale="2 2 2" animation-mixer></a-gltf-model>
-    </a-entity>
-    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
-  </a-scene>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const exampleTarget = document.querySelector("#example-target");
-      const fortunes = [
-        "Success is on your horizon.",
-        "Good news will come to you by mail.",
-        "A pleasant surprise is waiting for you.",
-        "You will meet someone special soon.",
-        "Your hard work will pay off.",
-        "Adventure is in your future.",
-        "Happiness will come your way soon.",
-        "A lifetime of happiness lies ahead of you.",
-        "You will soon find the love of your life.",
-        "Financial prosperity is coming your way.",
-        "A new opportunity will present itself to you.",
-        "Your creative talents will be recognized and rewarded.",
-        "You will make lasting memories with friends and family.",
-        "Travel plans will bring you joy and excitement.",
-        "Unexpected blessings are coming your way.",
-        "You will overcome obstacles with ease.",
-        "An exciting adventure awaits you.",
-        "Your kindness will be repaid in unexpected ways.",
-        "You will achieve your goals with determination and perseverance.",
-        "A windfall of good fortune is heading your way."
-      ];
-      
-      const fortuneCookie = document.getElementById('fortuneCookie');
-      fortuneCookie.style.display = "none";
-      fortuneCookie.classList.add('shaking');
 
-      exampleTarget.addEventListener("targetFound", event => {
-        console.log("Target detected:");
-        console.log("Loading random model...");
-        fortuneCookie.style.display = "block";
+
+    <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
+
+      <a-assets>
+        <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest.glb"></a-asset-item>
+      </a-assets>
+
+      <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
+        <a-gltf-model id="minecraft_chest" src="#minecraft_chest" rotation="0 -90 0 " position="0 0 0" scale="0.005 0.005 0.005" animation-mixer></a-gltf-model>
+      </a-entity>
+
+      <div class="fortune-slip" id="fortuneSlip"></div>
+
+      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+
+    </a-scene>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const exampleTarget = document.querySelector("#example-target");
+        const fortunes = [
+          "Success is on your horizon.",
+          "Good news will come to you by mail.",
+          "A pleasant surprise is waiting for you.",
+          "You will meet someone special soon.",
+          "Your hard work will pay off.",
+          "Adventure is in your future.",
+          "Happiness will come your way soon.",
+          "A lifetime of happiness lies ahead of you.",
+          "You will soon find the love of your life.",
+          "Financial prosperity is coming your way.",
+          "A new opportunity will present itself to you.",
+          "Your creative talents will be recognized and rewarded.",
+          "You will make lasting memories with friends and family.",
+          "Travel plans will bring you joy and excitement.",
+          "Unexpected blessings are coming your way.",
+          "You will overcome obstacles with ease.",
+          "An exciting adventure awaits you.",
+          "Your kindness will be repaid in unexpected ways.",
+          "You will achieve your goals with determination and perseverance.",
+          "A windfall of good fortune is heading your way."
+        ];
+        
+        // Hide the fortune cookie initially
+        const minecraftChest = document.getElementById("minecraft_chest");
+        // minecraft_chest.style.display = "none";
+        minecraftChest.classList.add("shaking"); // Add the shaking class
+
+        // Listen for the target found event
+        exampleTarget.addEventListener("targetFound", event => {
+          console.log("Target detected:");
+          console.log("Loading random model...");
+          
+          // Show the fortune cookie after the target is found
+          minecraftChest.style.display = "block";
+        });
+        
+        // Function for confetti
+        const count = 200;
+        const defaults = { origin: { y: 0.7 } };
+
+        function fire(particleRatio, opts) {
+          const spread = Math.random() * 360; // Random spread angle between 0 and 360
+          const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
+          confetti(Object.assign({}, defaults, opts, {
+            particleCount: Math.floor(count * particleRatio),
+            spread: spread,
+            startVelocity: startVelocity,
+          }));
+        }
+        
+        let hasClicked = false; // Flag to prevent multiple clicks
+
+        // // Listen for both click and touchstart events on the scene
+        // document.querySelector("a-scene").addEventListener("click", handleInteraction);
+        // document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
+
+        // Function to handle interaction (click or touch)
+        function handleInteraction(){
+          if (hasClicked) return; // If already clicked, do nothing
+          hasClicked = true; // Set flag to true after the first click
+
+          // Display the fortune slip and crack the fortune cookie
+          const fortuneSlip = document.getElementById("fortuneSlip");
+          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          fortuneSlip.textContent = randomFortune;
+          console.log(randomFortune);
+
+          // Set timeout to add 'cracked' class after 1 second
+          setTimeout(() => {
+            minecraftChest.classList.remove("shaking"); // Remove the shaking class
+            
+            // Trigger confetti effect
+            fire(0.25, {
+              spread: 50,
+              startVelocity: 55,
+            });
+
+            fire(0.2, {
+              spread: 100,
+            });
+
+            fire(0.35, {
+              spread: 150,
+              decay: 0.91,
+              scalar: 0.8,
+            });
+
+            fire(0.1, {
+              spread: 150,
+              startVelocity: 25,
+              decay: 0.92,
+              scalar: 1.2,
+            });
+
+            fire(0.1, {
+              spread: 140,
+              startVelocity: 45,
+            });
+
+          }, 1000);
+          const uiOverlay = document.getElementById('UI-overlay');
+          uiOverlay.style.display = 'none';
+        }
+
+        document.querySelector("a-scene").addEventListener("click", handleInteraction);
+        document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
       });
-
-      const count = 200;
-      const defaults = { origin: { y: 0.7 } };
-
-      function fire(particleRatio, opts) {
-        const spread = Math.random() * 360;
-        const startVelocity = Math.random() * 100;
-        confetti(Object.assign({}, defaults, opts, {
-          particleCount: Math.floor(count * particleRatio),
-          spread: spread,
-          startVelocity: startVelocity,
-        }));
-      }
-
-      let hasClicked = false;
-
-      document.querySelector("a-scene").addEventListener("click", handleInteraction);
-      document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
-
-      function handleInteraction(){
-        if (hasClicked) return;
-        hasClicked = true;
-
-        const fortuneSlip = document.getElementById('fortuneSlip');
-        const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-        fortuneSlip.textContent = randomFortune;
-
-        setTimeout(() => {
-          fortuneCookie.classList.remove('shaking');
-          fortuneCookie.classList.add('cracked');
-
-          fire(0.25, {
-            spread: 50,
-            startVelocity: 55,
-          });
-
-          fire(0.2, {
-            spread: 100,
-          });
-
-          fire(0.35, {
-            spread: 150,
-            decay: 0.91,
-            scalar: 0.8,
-          });
-
-          fire(0.1, {
-            spread: 150,
-            startVelocity: 25,
-            decay: 0.92,
-            scalar: 1.2,
-          });
-
-          fire(0.1, {
-            spread: 140,
-            startVelocity: 45,
-          });
-
-        }, 1000);
-        const uiOverlay = document.getElementById('UI-overlay');
-        uiOverlay.style.display = 'none';
-      }
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
