@@ -216,7 +216,7 @@
 }
 /* ############################# */
 
-/* Cookies */
+Cookies
 /* body {
   display: flex;
   flex-direction: column;
@@ -260,7 +260,7 @@
   left: 100px;
   border-radius: 0 50% 50% 0;
   box-shadow: inset 10px 0 0 -5px #8b4513, inset 20px 0 0 -10px #a0522d;
-}
+}*/
 
 .fortune-slip {
   position: absolute;
@@ -276,7 +276,7 @@
   font-weight: bold;
 }
 
-.cracked .cookie-left {
+/* .cracked .cookie-left {
   transform: rotate(-15deg);
   left: -50px;
   box-shadow: inset -10px 0 0 -5px #8b4513, inset -20px 0 0 -10px #a0522d, inset -5px -10px 10px -10px #8b4513, inset -15px -10px 10px -20px #a0522d;
@@ -286,7 +286,7 @@
   transform: rotate(15deg);
   left: 150px;
   box-shadow: inset 10px 0 0 -5px #8b4513, inset 20px 0 0 -10px #a0522d, inset 5px -10px 10px -10px #8b4513, inset 15px -10px 10px -20px #a0522d;
-}
+} */
 
 .cracked+.fortune-slip {
   transform: translate(-50%, -50%) scale(1.2) rotate(360deg);
@@ -299,7 +299,7 @@
   50% { transform: rotate(10deg); }
   75% { transform: rotate(-10deg); }
   100% { transform: rotate(0deg); }
-} */
+} 
 
 /* body {
   display: flex;
