@@ -74,7 +74,7 @@
         // Hide the fortune cookie initially
         const minecraftChest = document.getElementById("minecraft_chest_model");
         const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
-        // minecraft_chest.style.display = "none";
+        minecraftChestAnimate.style.display = "none";
         minecraftChest.classList.add("shaking"); // Add the shaking class
 
         // Listen for the target found event
@@ -101,10 +101,6 @@
         }
         
         let hasClicked = false; // Flag to prevent multiple clicks
-
-        // // Listen for both click and touchstart events on the scene
-        // document.querySelector("a-scene").addEventListener("click", handleInteraction);
-        // document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
 
         // Function to handle interaction (click or touch)
         function handleInteraction(){
