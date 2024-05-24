@@ -108,6 +108,8 @@
         function handleInteraction(){
           if (hasClicked) return; // If already clicked, do nothing
           hasClicked = true; // Set flag to true after the first click
+          if(hasOpened) return;
+          hasOpened = true;
 
           // Display the fortune slip and crack the fortune cookie
           const fortuneSlip = document.getElementById("fortuneSlip");
@@ -121,8 +123,6 @@
             minecraftChest.setAttribute("visible", "false");
             minecraftChestAnimate.setAttribute("visible", "true");
             minecraftChestAnimate.style.display = "block"; // Ensure it's visible
-
-
             
             // Trigger confetti effect
             fire(0.25, {
