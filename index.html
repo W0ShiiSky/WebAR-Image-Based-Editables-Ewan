@@ -5,18 +5,13 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
   </head>
   <body style="margin: 0; background-color: black;">
-    <!-- id="UI-overlay" fixes the issue where the AR content gets cutoff at where the buttons are -->
-    <!-- display flex is to prevent the UI overlay from disappearing when displaying AR content. Can be removed -->
     <div id="UI-overlay" style="max-height: 100%; max-width: 100%;">
       <div id="UI-placement">
-        <!-- scanning box crosshair copied from MindAR example -->
         <div id="scanning-overlay" class="mindar-ui-scanning">
           <div class="scanning">
             <div class="inner" id="scanBoxSize">
@@ -27,9 +22,7 @@
       </div>
     </div>
 
-
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
-
       <a-assets>
         <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest_without_animation.glb"></a-asset-item>
         <a-asset-item id="minecraft_chest_animate" src="./static/3D-file/glb/untitled6.glb"></a-asset-item>
@@ -71,29 +64,24 @@
           "A windfall of good fortune is heading your way."
         ];
         
-        // Hide the fortune cookie initially
         const minecraftChest = document.getElementById("minecraft_chest_model");
         const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
         minecraftChestAnimate.style.display = "none";
-        minecraftChest.classList.add("shaking"); // Add the shaking class
+        minecraftChest.classList.add("shaking");
         minecraftChestAnimate.setAttribute("visible", "false");
 
-        // Listen for the target found event
         exampleTarget.addEventListener("targetFound", event => {
           console.log("Target detected:");
           console.log("Loading random model...");
-          
-          // Show the fortune cookie after the target is found
           minecraftChest.style.display = "block";
         });
         
-        // Function for confetti
         const count = 200;
         const defaults = { origin: { y: 0.7 } };
 
         function fire(particleRatio, opts) {
-          const spread = Math.random() * 360; // Random spread angle between 0 and 360
-          const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
+          const spread = Math.random() * 360;
+          const startVelocity = Math.random() * 100;
           confetti(Object.assign({}, defaults, opts, {
             particleCount: Math.floor(count * particleRatio),
             spread: spread,
@@ -101,63 +89,42 @@
           }));
         }
         
-        let hasClicked = false; // Flag to prevent multiple clicks
+        let hasClicked = false;
 
-        // Function to handle interaction (click or touch)
         function handleInteraction(){
-          if (hasClicked) return; // If already clicked, do nothing
-          hasClicked = true; // Set flag to true after the first click
+          if (hasClicked) return;
+          hasClicked = true;
 
-          // Display the fortune slip and crack the fortune cookie
           const fortuneSlip = document.getElementById("fortuneSlip");
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
           fortuneSlip.textContent = randomFortune;
           console.log(randomFortune);
 
-          // Set timeout to add 'cracked' class after 1 second
           setTimeout(() => {
             minecraftChest.classList.remove("shaking");
             minecraftChest.setAttribute("visible", "false");
             minecraftChestAnimate.setAttribute("visible", "true");
-            minecraftChestAnimate.style.display = "block"; // Ensure it's visible
+            minecraftChestAnimate.style.display = "block";
 
-
-            
-            // Trigger confetti effect
-            fire(0.25, {
-              spread: 50,
-              startVelocity: 55,
-            });
-
-            fire(0.2, {
-              spread: 100,
-            });
-
-            fire(0.35, {
-              spread: 150,
-              decay: 0.91,
-              scalar: 0.8,
-            });
-
-            fire(0.1, {
-              spread: 150,
-              startVelocity: 25,
-              decay: 0.92,
-              scalar: 1.2,
-            });
-
-            fire(0.1, {
-              spread: 140,
-              startVelocity: 45,
-            });
-
+            fire(0.25, { spread: 50, startVelocity: 55 });
+            fire(0.2, { spread: 100 });
+            fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 140, startVelocity: 45 });
           }, 1000);
+
           const uiOverlay = document.getElementById('UI-overlay');
           uiOverlay.style.display = 'none';
         }
 
         document.querySelector("a-scene").addEventListener("click", handleInteraction);
         document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
+
+        // Event listener for the end of the animation
+        minecraftChestAnimate.addEventListener('animation-finished', function () {
+          console.log('Animation has finished.');
+          minecraftChestAnimate.setAttribute('visible', 'false');
+        });
       });
     </script>
   </body>
