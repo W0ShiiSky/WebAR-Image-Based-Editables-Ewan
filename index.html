@@ -5,6 +5,9 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
   </head>
@@ -20,31 +23,28 @@
               <div class="scanline"></div>
             </div>
           </div>
-          <p id="scanBoxP">Scan characters to see AR feature!</p>
         </div>
       </div>
     </div>
 
+
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
       <a-assets>
-        <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/medieval_wooden_chest.glb"></a-asset-item>
+        <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest_without_animation.glb"></a-asset-item>
+        <a-asset-item id="minecraft_chest_animate" src="./static/3D-file/glb/untitled10.glb"></a-asset-item>
       </a-assets>
 
-      <a-entity id="example-target" mindar-image-target="targetIndex: 0">   
-        <a-gltf-model src="#minecraft_chest" rotation="0 0 0 " position="0 0 0" scale="1 1 1" animation-mixer></a-gltf-model>
+      <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
+        <a-gltf-model id="minecraft_chest_model" src="#minecraft_chest" rotation="90 -90 0" position="-0.4 0 0" scale="0.005 0.005 0.005" animation-mixer visible="true"></a-gltf-model>
+        <a-gltf-model id="minecraft_chest_model_animate" src="#minecraft_chest_animate" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005" visble="false"></a-gltf-model>
       </a-entity>
 
-      </a-entity>
+      <div class="fortune-slip" id="fortuneSlip"></div>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
 
     </a-scene>
-
-    <div id="text-box" style="position: absolute; top: 10px; left: 10px; background-color: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; font-family: 'Roboto', sans-serif; display: none;">
-      <p class="fortune-slip" id="fortuneSlip" style="margin: 0; color: black;"></p>
-    </div>
-
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const exampleTarget = document.querySelector("#example-target");
@@ -70,41 +70,25 @@
           "You will achieve your goals with determination and perseverance.",
           "A windfall of good fortune is heading your way."
         ];
+        
+        // Hide the fortune cookie initially
+        const minecraftChest = document.getElementById("minecraft_chest_model");
+        const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
+        minecraftChestAnimate.style.display = "none";
+        minecraftChest.classList.add("shaking"); // Add the shaking class
+        minecraftChestAnimate.setAttribute("visible", "false");
 
-        const sceneEl = document.querySelector("a-scene");
-        let arSystem;
-        sceneEl.addEventListener("loaded", function () {
-          arSystem = sceneEl.systems["mindar-image-system"];
+        // Listen for the target found event
+        exampleTarget.addEventListener("targetFound", event => {
+          console.log("Target detected:");
+          console.log("Loading random model...");
+          
+          // Show the fortune cookie after the target is found
+          minecraftChest.style.display = "block";
         });
-        1;
-
-        // arReady event triggered when ready
-        sceneEl.addEventListener("arReady", (event) => {
-          // console.log("MindAR is ready")
-        });
-        // arError event triggered when something went wrong. Mostly browser compatbility issue
-        sceneEl.addEventListener("arError", (event) => {
-          // console.log("MindAR failed to start")
-        });
-        // detect target found
-        exampleTarget.addEventListener("targetFound", (event) => {
-          console.log("target found");
-          document.getElementById("vid").play();
-        });
-        // detect target lost
-        exampleTarget.addEventListener("targetLost", (event) => {
-          console.log("target lost");
-          document.getElementById("vid").pause();
-        });
-
-      screen.orientation.addEventListener("change", () => {
-        // window.location.reload();
-        arSystem.stop();
-        arSystem.start();
-      });
-
-      // Function for confetti
-      const count = 200;
+        
+        // Function for confetti
+        const count = 200;
         const defaults = { origin: { y: 0.7 } };
 
         function fire(particleRatio, opts) {
@@ -118,10 +102,7 @@
         }
         
         let hasClicked = false; // Flag to prevent multiple clicks
-
-        // Listen for both click and touchstart events on the scene
-        document.querySelector("a-scene").addEventListener("click", handleInteraction);
-        document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
+        let hasOpened = false;
 
         // Function to handle interaction (click or touch)
         function handleInteraction(){
@@ -129,13 +110,20 @@
           hasClicked = true; // Set flag to true after the first click
 
           // Display the fortune slip and crack the fortune cookie
-          const fortuneSlip = document.getElementById('fortuneSlip');
+          const fortuneSlip = document.getElementById("fortuneSlip");
           const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
           fortuneSlip.textContent = randomFortune;
+          console.log(randomFortune);
 
-          // Show the fortune text box
-          document.getElementById('text-box').style.display = 'block';
-      
+          // Set timeout to add 'cracked' class after 1 second
+          setTimeout(() => {
+            minecraftChest.classList.remove("shaking");
+            minecraftChest.setAttribute("visible", "false");
+            minecraftChestAnimate.setAttribute("visible", "true");
+            minecraftChestAnimate.style.display = "block"; // Ensure it's visible
+
+
+            
             // Trigger confetti effect
             fire(0.25, {
               spread: 50,
@@ -164,11 +152,13 @@
               startVelocity: 45,
             });
 
+          }, 1000);
           const uiOverlay = document.getElementById('UI-overlay');
           uiOverlay.style.display = 'none';
         }
 
-
+        document.querySelector("a-scene").addEventListener("click", handleInteraction);
+        document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
       });
     </script>
   </body>
