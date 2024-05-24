@@ -36,7 +36,7 @@
 
     <div class="fortune-slip" id="fortuneSlip"></div>
 
-    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="objects: .clickable"></a-camera>
   </a-scene>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -73,7 +73,6 @@
       exampleTarget.addEventListener("targetFound", event => {
         console.log("Target detected:");
         console.log("Loading random model...");
-
         minecraftChest.style.display = "block";
       });
 
@@ -101,25 +100,23 @@
         fortuneSlip.textContent = randomFortune;
         console.log(randomFortune);
 
+        minecraftChest.setAttribute("visible", "false");
+        minecraftChestAnimate.setAttribute("visible", "true");
+
         const mixer = minecraftChestAnimate.components['animation-mixer'].mixer;
         const clips = mixer._actions;
         clips.forEach(action => {
-          action.setLoop(THREE.LoopRepeat, 1);  // Set the animation to loop twice
+          action.setLoop(THREE.LoopRepeat, 2);
+          action.play();
         });
 
-        setTimeout(() => {
-          minecraftChest.classList.remove("shaking");
-          minecraftChest.setAttribute("visible", "false");
-          minecraftChestAnimate.setAttribute("visible", "true");
-          minecraftChestAnimate.style.display = "block";
+        minecraftChestAnimate.style.display = "block";
 
-          fire(0.25, { spread: 50, startVelocity: 55 });
-          fire(0.2, { spread: 100 });
-          fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
-          fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-          fire(0.1, { spread: 140, startVelocity: 45 });
-
-        }, 1000);
+        fire(0.25, { spread: 50, startVelocity: 55 });
+        fire(0.2, { spread: 100 });
+        fire(0.35, { spread: 150, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 150, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        fire(0.1, { spread: 140, startVelocity: 45 });
 
         const uiOverlay = document.getElementById('UI-overlay');
         uiOverlay.style.display = 'none';
