@@ -118,11 +118,12 @@
           console.log(randomFortune);
 
           // Set timeout to add 'cracked' class after 1 second
-          setTimeout(() => {
             minecraftChest.classList.remove("shaking");
             minecraftChest.setAttribute("visible", "false");
             minecraftChestAnimate.setAttribute("visible", "true");
             minecraftChestAnimate.style.display = "block"; // Ensure it's visible
+            // Ensure the animation starts playing when the model becomes visible
+            minecraftChestAnimate.components['animation-mixer'].play();
             
             // Trigger confetti effect
             fire(0.25, {
@@ -152,7 +153,7 @@
               startVelocity: 45,
             });
 
-          }, 1000);
+          
           const uiOverlay = document.getElementById('UI-overlay');
           uiOverlay.style.display = 'none';
         }
