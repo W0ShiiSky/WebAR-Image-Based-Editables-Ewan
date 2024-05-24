@@ -5,13 +5,18 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
   </head>
   <body style="margin: 0; background-color: black;">
+    <!-- id="UI-overlay" fixes the issue where the AR content gets cutoff at where the buttons are -->
+    <!-- display flex is to prevent the UI overlay from disappearing when displaying AR content. Can be removed -->
     <div id="UI-overlay" style="max-height: 100%; max-width: 100%;">
       <div id="UI-placement">
+        <!-- scanning box crosshair copied from MindAR example -->
         <div id="scanning-overlay" class="mindar-ui-scanning">
           <div class="scanning">
             <div class="inner" id="scanBoxSize">
@@ -22,7 +27,9 @@
       </div>
     </div>
 
+
     <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
+
       <a-assets>
         <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest_without_animation.glb"></a-asset-item>
         <a-asset-item id="minecraft_chest_animate" src="./static/3D-file/glb/untitled6.glb"></a-asset-item>
@@ -30,12 +37,13 @@
 
       <a-entity id="example-target" mindar-image-target="targetIndex: 0">  
         <a-gltf-model id="minecraft_chest_model" src="#minecraft_chest" rotation="90 -90 0" position="-0.4 0 0" scale="0.005 0.005 0.005" animation-mixer visible="true"></a-gltf-model>
-        <a-gltf-model id="minecraft_chest_model_animate" src="#minecraft_chest_animate" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005" animation-mixer="clip: ./static/3D-file/glb/untitled6.glb; loop: once" visible="false"></a-gltf-model>
+        <a-gltf-model id="minecraft_chest_model_animate" src="#minecraft_chest_animate" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005" animation-mixer visble="false"></a-gltf-model>
       </a-entity>
 
       <div class="fortune-slip" id="fortuneSlip"></div>
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+
     </a-scene>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -113,6 +121,8 @@
             minecraftChestAnimate.setAttribute("visible", "true");
             minecraftChestAnimate.style.display = "block"; // Ensure it's visible
 
+
+            
             // Trigger confetti effect
             fire(0.25, {
               spread: 50,
