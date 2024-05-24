@@ -104,7 +104,7 @@
         const mixer = minecraftChestAnimate.components['animation-mixer'].mixer;
         const clips = mixer._actions;
         clips.forEach(action => {
-          action.setLoop(THREE.LoopRepeat, 2);  // Set the animation to loop twice
+          action.setLoop(THREE.LoopRepeat, 1);  // Set the animation to loop twice
         });
 
         setTimeout(() => {
