@@ -123,9 +123,6 @@
         fortuneSlip.style.opacity = "1";
         console.log(randomFortune);
   
-        // Set timeout to add 'cracked' class after 1 second
-        setTimeout(() => {
-          minecraftChest.classList.remove("shaking");
           minecraftChest.setAttribute("visible", "false");
           minecraftChestAnimate.setAttribute("visible", "true");
           minecraftChestAnimate.style.display = "block"; // Ensure it's visible
@@ -159,7 +156,7 @@
             startVelocity: 45,
           });
   
-        }, 1000);
+        
         const uiOverlay = document.getElementById('UI-overlay');
         uiOverlay.style.display = 'none';
       }
