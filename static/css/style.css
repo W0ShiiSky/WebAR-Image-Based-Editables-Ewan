@@ -258,6 +258,8 @@ body {
   z-index: 1000;
   transition: transform 0.5s, opacity 0.5s;
   display: none; /* Hide fortune slip initially */
+  animation-name: slideIn;
+  animation-duration: 1s;
 }
 
 
@@ -265,7 +267,13 @@ body {
   animation: spin 1s forwards; /* Apply the spin animation */
 }
 
-@keyframes spin {
-  from { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
-  to { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+@keyframes slideIn {
+  0% {
+      transform: translate(-50%, -150%);
+      opacity: 0;
+  }
+  100% {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+  }
 }
