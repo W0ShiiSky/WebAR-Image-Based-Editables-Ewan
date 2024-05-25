@@ -243,15 +243,12 @@ body {
 
 }
 
-.cracked+.fortune-slip {
-  transform: translate(-50%, -50%) scale(1.2) rotate(360deg);
-  opacity: 1;
+
+.fortune-slip.show {
+  animation: spin 1s forwards; /* Apply the spin animation */
 }
 
-@keyframes shake {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(-10deg); }
-  50% { transform: rotate(10deg); }
-  75% { transform: rotate(-10deg); }
-  100% { transform: rotate(0deg); }
-} 
+@keyframes spin {
+  from { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+  to { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+}
