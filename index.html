@@ -31,7 +31,7 @@
     <a-entity id="example-target" mindar-image-target="targetIndex: 0">
       <a-gltf-model id="minecraft_chest_model" src="#minecraft_chest" rotation="90 -90 0" position="-0.4 0 0" scale="0.005 0.005 0.005" animation-mixer visible="true"></a-gltf-model>
       <a-gltf-model id="minecraft_chest_model_animate" src="#minecraft_chest_animate" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005" animation-mixer="loop: once; clip: *; timeScale: 0" visible="false"></a-gltf-model>
-      <a-entity id="fortuneSlip" text="value: ; align: center; color: black; width: 2;" position="0 0.5 0" visible="false"></a-entity>
+      <a-entity id="fortuneSlip" class="fortune-slip" position="0 0.5 0" visible="false"></a-entity>
     </a-entity>
 
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -116,8 +116,11 @@
 
         // Display the fortune slip and crack the fortune cookie
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-        fortuneSlip.setAttribute("text", "value: " + randomFortune + "; align: center; color: black; width: 4;");
-        fortuneSlip.setAttribute("visible", "true");
+        // fortuneSlip.setAttribute("text", "value: " + randomFortune + "; align: center; color: black; width: 4;");
+        // fortuneSlip.setAttribute("visible", "true");
+        fortuneSlip.textContent = randomFortune;
+        fortuneSlip.style.transform = "translate(-50%, -50%) scale(1)";
+        fortuneSlip.style.opacity = "1";
         console.log(randomFortune);
 
         // Set timeout to add 'cracked' class after 1 second
