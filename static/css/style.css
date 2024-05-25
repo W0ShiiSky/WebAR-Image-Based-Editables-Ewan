@@ -258,8 +258,9 @@ body {
   z-index: 1000;
   transition: transform 0.5s, opacity 0.5s;
   display: none; /* Hide fortune slip initially */
-  animation-name: slideIn;
-  animation-duration: 1s;
+  animation-name: slideIn, turnIn;
+  animation-duration: 1s, 0.5s;
+  animation-delay: 0s, 0.5s;
 }
 
 
@@ -275,5 +276,14 @@ body {
   100% {
       transform: translate(-50%, -50%);
       opacity: 1;
+  }
+}
+
+@keyframes turnIn {
+  0% {
+      transform: translate(-50%, -50%) rotateX(-90deg);
+  }
+  100% {
+      transform: translate(-50%, -50%) rotateX(0deg);
   }
 }
