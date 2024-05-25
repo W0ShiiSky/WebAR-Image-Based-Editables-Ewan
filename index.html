@@ -82,7 +82,13 @@
         minecraftChest.style.display = "block";
         isTargetFound = true;
       });
-      
+
+      // Listen for the target lost event
+      exampleTarget.addEventListener("targetLost", event => {
+        console.log("Target lost:");
+        isTargetFound = false;
+      });
+
       // Function for confetti
       const count = 200;
       const defaults = { origin: { y: 0.7 } };
