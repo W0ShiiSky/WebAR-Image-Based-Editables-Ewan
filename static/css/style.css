@@ -257,6 +257,7 @@ body {
   color: black;
   z-index: 1000;
   transition: transform 0.5s, opacity 0.5s;
+  display: none; /* Hide fortune slip initially */
 }
 
 
