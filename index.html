@@ -91,6 +91,21 @@
         fortuneSlip.style.transform = "translate(-50%, -50%) scale(0)";
         fortuneSlip.style.opacity = "0";
       });
+
+      // Dynamically adjust the position and rotation of the 3D model based on the target image's orientation
+      exampleTarget.addEventListener("mindar-image-update", event => {
+        if (!isTargetFound) return;
+
+        const { position, rotation } = event.detail;
+
+        // Adjust the position of the 3D model
+        minecraftChest.object3D.position.copy(position);
+        minecraftChestAnimate.object3D.position.copy(position);
+
+        // Adjust the rotation of the 3D model
+        minecraftChest.object3D.rotation.copy(rotation);
+        minecraftChestAnimate.object3D.rotation.copy(rotation);
+      });
   
       const count = 200;
       const defaults = { origin: { y: 0.7 } };
