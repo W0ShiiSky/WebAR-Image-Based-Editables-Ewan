@@ -81,6 +81,7 @@
         // Show fortune slip when target is found
         fortuneSlip.style.transform = "translate(-50%, -50%) scale(1)";
         fortuneSlip.style.opacity = "1";
+        fortuneSlip.style.display = "none"; // Keep it hidden initially
       });
   
       exampleTarget.addEventListener("targetLost", event => {
@@ -117,6 +118,7 @@
   
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         fortuneSlip.textContent = randomFortune;
+        fortuneSlip.style.display = "block"; // Make fortune slip visible
         console.log(randomFortune);
   
         minecraftChest.setAttribute("visible", "false");
