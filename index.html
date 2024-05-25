@@ -22,6 +22,9 @@
     </div>
   </div>
 
+  <!-- Fortune slip positioned absolutely in the body -->
+  <div id="fortuneSlip" class="fortune-slip"></div>
+
   <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
     <a-assets>
       <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest_without_animation.glb"></a-asset-item>
@@ -31,7 +34,6 @@
     <a-entity id="example-target" mindar-image-target="targetIndex: 0">
       <a-gltf-model id="minecraft_chest_model" src="#minecraft_chest" rotation="90 -90 0" position="-0.4 0 0" scale="0.005 0.005 0.005" animation-mixer visible="true"></a-gltf-model>
       <a-gltf-model id="minecraft_chest_model_animate" src="#minecraft_chest_animate" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005" animation-mixer="loop: once; clip: *; timeScale: 0" visible="false"></a-gltf-model>
-      <a-entity id="fortuneSlip" class="fortune-slip" position="0 0.5 0" visible="false"></a-entity>
     </a-entity>
 
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -62,7 +64,7 @@
         "You will achieve your goals with determination and perseverance.",
         "A windfall of good fortune is heading your way."
       ];
-
+  
       // Hide the fortune cookie initially
       const minecraftChest = document.getElementById("minecraft_chest_model");
       const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
@@ -70,9 +72,9 @@
       minecraftChestAnimate.style.display = "none";
       minecraftChest.classList.add("shaking"); // Add the shaking class
       minecraftChestAnimate.setAttribute("visible", "false");
-
+  
       let isTargetFound = false;
-
+  
       // Listen for the target found event
       exampleTarget.addEventListener("targetFound", event => {
         console.log("Target detected:");
@@ -82,17 +84,17 @@
         minecraftChest.style.display = "block";
         isTargetFound = true;
       });
-
+  
       // Listen for the target lost event
       exampleTarget.addEventListener("targetLost", event => {
         console.log("Target lost:");
         isTargetFound = false;
       });
-
+  
       // Function for confetti
       const count = 200;
       const defaults = { origin: { y: 0.7 } };
-
+  
       function fire(particleRatio, opts) {
         const spread = Math.random() * 360; // Random spread angle between 0 and 360
         const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
@@ -105,7 +107,7 @@
       
       let hasClicked = false; // Flag to prevent multiple clicks
       let hasOpened = false;
-
+  
       // Function to handle interaction (click or touch)
       function handleInteraction(){
         if (!isTargetFound) return; // Do nothing if target is not found
@@ -113,16 +115,14 @@
         hasClicked = true; // Set flag to true after the first click
         if (hasOpened) return;
         hasOpened = true;
-
+  
         // Display the fortune slip and crack the fortune cookie
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-        // fortuneSlip.setAttribute("text", "value: " + randomFortune + "; align: center; color: black; width: 4;");
-        // fortuneSlip.setAttribute("visible", "true");
         fortuneSlip.textContent = randomFortune;
         fortuneSlip.style.transform = "translate(-50%, -50%) scale(1)";
         fortuneSlip.style.opacity = "1";
         console.log(randomFortune);
-
+  
         // Set timeout to add 'cracked' class after 1 second
         setTimeout(() => {
           minecraftChest.classList.remove("shaking");
@@ -136,37 +136,37 @@
             spread: 50,
             startVelocity: 55,
           });
-
+  
           fire(0.2, {
             spread: 100,
           });
-
+  
           fire(0.35, {
             spread: 150,
             decay: 0.91,
             scalar: 0.8,
           });
-
+  
           fire(0.1, {
             spread: 150,
             startVelocity: 25,
             decay: 0.92,
             scalar: 1.2,
           });
-
+  
           fire(0.1, {
             spread: 140,
             startVelocity: 45,
           });
-
+  
         }, 1000);
         const uiOverlay = document.getElementById('UI-overlay');
         uiOverlay.style.display = 'none';
       }
-
+  
       document.querySelector("a-scene").addEventListener("click", handleInteraction);
       document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
     });
-  </script>
+  </script>  
 </body>
 </html>
