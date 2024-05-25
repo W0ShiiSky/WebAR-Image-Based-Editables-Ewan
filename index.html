@@ -22,7 +22,6 @@
     </div>
   </div>
 
-  <!-- Fortune slip positioned absolutely in the body -->
   <div id="fortuneSlip" class="fortune-slip"></div>
 
   <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
@@ -65,39 +64,40 @@
         "A windfall of good fortune is heading your way."
       ];
   
-      // Hide the fortune cookie initially
       const minecraftChest = document.getElementById("minecraft_chest_model");
       const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
       const fortuneSlip = document.getElementById("fortuneSlip");
       minecraftChestAnimate.style.display = "none";
-      minecraftChest.classList.add("shaking"); // Add the shaking class
+      minecraftChest.classList.add("shaking");
       minecraftChestAnimate.setAttribute("visible", "false");
   
       let isTargetFound = false;
   
-      // Listen for the target found event
       exampleTarget.addEventListener("targetFound", event => {
         console.log("Target detected:");
-        console.log("Loading random model...");
-        
-        // Show the fortune cookie after the target is found
         minecraftChest.style.display = "block";
         isTargetFound = true;
+
+        // Show fortune slip when target is found
+        fortuneSlip.style.transform = "translate(-50%, -50%) scale(1)";
+        fortuneSlip.style.opacity = "1";
       });
   
-      // Listen for the target lost event
       exampleTarget.addEventListener("targetLost", event => {
         console.log("Target lost:");
         isTargetFound = false;
+
+        // Hide fortune slip when target is lost
+        fortuneSlip.style.transform = "translate(-50%, -50%) scale(0)";
+        fortuneSlip.style.opacity = "0";
       });
   
-      // Function for confetti
       const count = 200;
       const defaults = { origin: { y: 0.7 } };
   
       function fire(particleRatio, opts) {
-        const spread = Math.random() * 360; // Random spread angle between 0 and 360
-        const startVelocity = Math.random() * 100; // Random start velocity between 0 and 100
+        const spread = Math.random() * 360;
+        const startVelocity = Math.random() * 100;
         confetti(Object.assign({}, defaults, opts, {
           particleCount: Math.floor(count * particleRatio),
           spread: spread,
@@ -105,58 +105,52 @@
         }));
       }
       
-      let hasClicked = false; // Flag to prevent multiple clicks
+      let hasClicked = false;
       let hasOpened = false;
   
-      // Function to handle interaction (click or touch)
       function handleInteraction(){
-        if (!isTargetFound) return; // Do nothing if target is not found
-        if (hasClicked) return; // If already clicked, do nothing
-        hasClicked = true; // Set flag to true after the first click
+        if (!isTargetFound) return;
+        if (hasClicked) return;
+        hasClicked = true;
         if (hasOpened) return;
         hasOpened = true;
   
-        // Display the fortune slip and crack the fortune cookie
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         fortuneSlip.textContent = randomFortune;
-        fortuneSlip.style.transform = "translate(-50%, -50%) scale(1)";
-        fortuneSlip.style.opacity = "1";
         console.log(randomFortune);
   
-          minecraftChest.setAttribute("visible", "false");
-          minecraftChestAnimate.setAttribute("visible", "true");
-          minecraftChestAnimate.style.display = "block"; // Ensure it's visible
-          minecraftChestAnimate.setAttribute('animation-mixer', 'timeScale: 0.5');
-      
-          // Trigger confetti effect
-          fire(0.25, {
-            spread: 50,
-            startVelocity: 55,
-          });
+        minecraftChest.setAttribute("visible", "false");
+        minecraftChestAnimate.setAttribute("visible", "true");
+        minecraftChestAnimate.style.display = "block";
+        minecraftChestAnimate.setAttribute('animation-mixer', 'timeScale: 0.5');
+    
+        fire(0.25, {
+          spread: 50,
+          startVelocity: 55,
+        });
   
-          fire(0.2, {
-            spread: 100,
-          });
+        fire(0.2, {
+          spread: 100,
+        });
   
-          fire(0.35, {
-            spread: 150,
-            decay: 0.91,
-            scalar: 0.8,
-          });
+        fire(0.35, {
+          spread: 150,
+          decay: 0.91,
+          scalar: 0.8,
+        });
   
-          fire(0.1, {
-            spread: 150,
-            startVelocity: 25,
-            decay: 0.92,
-            scalar: 1.2,
-          });
+        fire(0.1, {
+          spread: 150,
+          startVelocity: 25,
+          decay: 0.92,
+          scalar: 1.2,
+        });
   
-          fire(0.1, {
-            spread: 140,
-            startVelocity: 45,
-          });
+        fire(0.1, {
+          spread: 140,
+          startVelocity: 45,
+        });
   
-        
         const uiOverlay = document.getElementById('UI-overlay');
         uiOverlay.style.display = 'none';
       }
@@ -164,6 +158,6 @@
       document.querySelector("a-scene").addEventListener("click", handleInteraction);
       document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
     });
-  </script>  
+  </script>
 </body>
 </html>
