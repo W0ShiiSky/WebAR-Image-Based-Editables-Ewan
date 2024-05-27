@@ -1,12 +1,15 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
+  <title>AR Fortune</title>
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="./static/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="./static/css/style.css">
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 </head>
 <body style="margin: 0; background-color: black;">
@@ -23,7 +26,6 @@
   </div>
 
   <div id="fortuneSlip" class="fortune-slip"></div>
-
   <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
     <a-assets>
       <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest_without_animation.glb"></a-asset-item>
@@ -39,40 +41,28 @@
   </a-scene>
 
   <script>
+    // Fetching JSON file
     document.addEventListener("DOMContentLoaded", function () {
+      fetch('./static/data/fortunes.json')
+        .then(response => response.json())
+        .then(data => {
+          const fortunes = data.fortunes;
+          initializeAR(fortunes);
+        })
+        .catch(error => console.error('Error loading fortunes:', error));
+    });
+
+    function initializeAR(fortunes) {
       const exampleTarget = document.querySelector("#example-target");
-      const fortunes = [
-        "Success is on your horizon.",
-        "Good news will come to you by mail.",
-        "A pleasant surprise is waiting for you.",
-        "You will meet someone special soon.",
-        "Your hard work will pay off.",
-        "Adventure is in your future.",
-        "Happiness will come your way soon.",
-        "A lifetime of happiness lies ahead of you.",
-        "You will soon find the love of your life.",
-        "Financial prosperity is coming your way.",
-        "A new opportunity will present itself to you.",
-        "Your creative talents will be recognized and rewarded.",
-        "You will make lasting memories with friends and family.",
-        "Travel plans will bring you joy and excitement.",
-        "Unexpected blessings are coming your way.",
-        "You will overcome obstacles with ease.",
-        "An exciting adventure awaits you.",
-        "Your kindness will be repaid in unexpected ways.",
-        "You will achieve your goals with determination and perseverance.",
-        "A windfall of good fortune is heading your way."
-      ];
-  
       const minecraftChest = document.getElementById("minecraft_chest_model");
       const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
       const fortuneSlip = document.getElementById("fortuneSlip");
       minecraftChestAnimate.style.display = "none";
       minecraftChest.classList.add("shaking");
       minecraftChestAnimate.setAttribute("visible", "false");
-  
+
       let isTargetFound = false;
-  
+
       exampleTarget.addEventListener("targetFound", event => {
         console.log("Target detected:");
         minecraftChest.style.display = "block";
@@ -82,15 +72,15 @@
         fortuneSlip.style.transform = "translate(-50%, -50%) scale(1)";
         fortuneSlip.style.opacity = "1";
       });
-  
-      // exampleTarget.addEventListener("targetLost", event => {
-      //   console.log("Target lost:");
-      //   isTargetFound = false;
 
-      //   // Hide fortune slip when target is lost
-      //   fortuneSlip.style.transform = "translate(-50%, -50%) scale(0)";
-      //   fortuneSlip.style.opacity = "0";
-      // });
+      exampleTarget.addEventListener("targetLost", event => {
+        console.log("Target lost:");
+        isTargetFound = false;
+
+        // Hide fortune slip when target is lost
+        fortuneSlip.style.transform = "translate(-50%, -50%) scale(0)";
+        fortuneSlip.style.opacity = "0";
+      });
 
       // Dynamically adjust the position and rotation of the 3D model based on the target image's orientation
       exampleTarget.addEventListener("mindar-image-update", event => {
@@ -106,10 +96,10 @@
         minecraftChest.object3D.rotation.copy(rotation);
         minecraftChestAnimate.object3D.rotation.copy(rotation);
       });
-  
+
       const count = 200;
       const defaults = { origin: { y: 0.7 } };
-  
+
       function fire(particleRatio, opts) {
         const spread = Math.random() * 360;
         const startVelocity = Math.random() * 100;
@@ -119,61 +109,61 @@
           startVelocity: startVelocity,
         }));
       }
-      
+
       let hasClicked = false;
       let hasOpened = false;
-  
+
       function handleInteraction(){
         if (!isTargetFound) return;
         if (hasClicked) return;
         hasClicked = true;
         if (hasOpened) return;
         hasOpened = true;
-  
+
         const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         fortuneSlip.textContent = randomFortune;
         fortuneSlip.style.display = "block"; // Make fortune slip visible
         console.log(randomFortune);
-  
+
         minecraftChest.setAttribute("visible", "false");
         minecraftChestAnimate.setAttribute("visible", "true");
         minecraftChestAnimate.style.display = "block";
         minecraftChestAnimate.setAttribute('animation-mixer', 'timeScale: 0.5');
-    
+
         fire(0.25, {
           spread: 50,
           startVelocity: 55,
         });
-  
+
         fire(0.2, {
           spread: 100,
         });
-  
+
         fire(0.35, {
           spread: 150,
           decay: 0.91,
           scalar: 0.8,
         });
-  
+
         fire(0.1, {
           spread: 150,
           startVelocity: 25,
           decay: 0.92,
           scalar: 1.2,
         });
-  
+
         fire(0.1, {
           spread: 140,
           startVelocity: 45,
         });
-  
+
         const uiOverlay = document.getElementById('UI-overlay');
         uiOverlay.style.display = 'none';
       }
-  
+
       document.querySelector("a-scene").addEventListener("click", handleInteraction);
       document.querySelector("a-scene").addEventListener("touchstart", handleInteraction);
-    });
+    }
   </script>
 </body>
 </html>
