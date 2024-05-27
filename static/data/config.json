@@ -1,5 +1,5 @@
 {
-    "imageTargetSrc": "./static/mind-file/Shinchan.mind",
+    "imageTargetSrc": "./static/mind-file/LTAlogo.mind",
     "uiScanning": "#scanning-overlay",
     "filterMinCF": 0.0001,
     "filterBeta": 0.001
