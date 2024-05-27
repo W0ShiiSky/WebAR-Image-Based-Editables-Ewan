@@ -41,24 +41,22 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      Promise.all([
-        fetch('./static/data/fortunes.json').then(response => response.json()),
-        fetch('./static/data/config.json').then(response => response.json()),
-        fetch('./static/data/model/state1.json').then(response => response.json()),
-        fetch('./static/data/model/state2.json').then(response => response.json()),
-      ])
-      .then(([fortunesData, configData, state1Data, state2Data]) => {
-        console.log("Fortunes Data:", fortunesData);
-        console.log("Config Data:", configData);
-        console.log("Model Config Data:", state1Data);
-        console.log("Model Config Data:", state2Data);
-        const fortunes = fortunesData.fortunes;
-        initializeAR(fortunes, configData, state1Data,  state2Data);
-      })
-      .catch(error => console.error('Error loading data:', error));
+      fetch('./static/data/combined.json')
+        .then(response => response.json())
+        .then(jsonData => {
+          console.log("Combined JSON Data:", jsonData);
+          const fortunes = jsonData.fortunes;
+          const configData = jsonData.config;
+          const modelData = {
+            state1: jsonData.state1.minecraft_chest.modelSrc,
+            state2: jsonData.state2.untitled10.modelSrc
+          };
+          initializeAR(fortunes, configData, modelData);
+        })
+        .catch(error => console.error('Error loading data:', error));
     });
 
-    function initializeAR(fortunes, config, state1, state2) {
+    function initializeAR(fortunes, config, models) {
       const arScene = document.getElementById('ar-scene');
       const exampleTarget = document.querySelector("#example-target");
 
@@ -73,13 +71,11 @@
       const minecraftChest = document.getElementById("minecraft_chest_model");
       const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
       const fortuneSlip = document.getElementById("fortuneSlip");
-      const modelSrc = state1.modelSrc;
-      minecraftChest.setAttribute("src", `${modelSrc}`);
-      const modelSrc2 = state2.modelSrc2;
-      minecraftChestAnimate.setAttribute("src", `${modelSrc2}`);
+      minecraftChest.setAttribute("src", models.state1);
+      minecraftChestAnimate.setAttribute("src", models.state2);
 
-      console.log("Minecraft chest src:", minecraftChest.getAttribute("src")); // Add this line
-      console.log("Minecraft chest animate src:", minecraftChestAnimate.getAttribute("src")); // Add this line
+      console.log("Minecraft chest src:", minecraftChest.getAttribute("src"));
+      console.log("Minecraft chest animate src:", minecraftChestAnimate.getAttribute("src"));
 
       minecraftChestAnimate.style.display = "none";
       minecraftChest.classList.add("shaking");
