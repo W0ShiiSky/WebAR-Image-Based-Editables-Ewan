@@ -74,13 +74,13 @@
       const minecraftChest = document.getElementById("minecraft_chest_model");
       const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
       const fortuneSlip = document.getElementById("fortuneSlip");
-      minecraftChestAnimate.style.display = "none";
-      minecraftChest.classList.add("shaking");
-      minecraftChestAnimate.setAttribute("visible", "false");
       const modelSrc = state1.modelSrc;
       minecraftChest.setAttribute("src", `${modelSrc}`);
       const modelSrc2 = state1.modelSrc;
       minecraftChestAnimate.setAttribute("src", `${modelSrc2}`);
+      minecraftChestAnimate.style.display = "none";
+      minecraftChest.classList.add("shaking");
+      minecraftChestAnimate.setAttribute("visible", "false");
 
       let isTargetFound = false;
 
