@@ -46,7 +46,7 @@
         fetch('./static/data/fortunes.json').then(response => response.json()),
         fetch('./static/data/config.json').then(response => response.json()),
         fetch('./static/data/model/state1.json').then(response => response.json()),
-        fetch('./static/data/model/state2.json').then(response => response.json())
+        fetch('./static/data/model/state2.json').then(response => response.json()),
       ])
       .then(([fortunesData, configData, state1Data, state2Data]) => {
         console.log("Fortunes Data:", fortunesData);
@@ -76,7 +76,7 @@
       const fortuneSlip = document.getElementById("fortuneSlip");
       const modelSrc = state1.modelSrc;
       minecraftChest.setAttribute("src", `${modelSrc}`);
-      const modelSrc2 = state2.modelSrc;
+      const modelSrc2 = state2.modelSrc2;
       minecraftChestAnimate.setAttribute("src", `${modelSrc2}`);
 
       console.log("Minecraft chest src:", minecraftChest.getAttribute("src")); // Add this line
