@@ -45,19 +45,19 @@
       Promise.all([
         fetch('./static/data/fortunes.json').then(response => response.json()),
         fetch('./static/data/config.json').then(response => response.json()),
-        fetch('./static/data/model_config.json').then(response => response.json())
+        fetch('./static/data/model/state1.json').then(response => response.json())
       ])
-      .then(([fortunesData, configData, modelConfigData]) => {
+      .then(([fortunesData, configData, state1Data]) => {
         console.log("Fortunes Data:", fortunesData);
         console.log("Config Data:", configData);
-        console.log("Model Config Data:", modelConfigData);
+        console.log("Model Config Data:", state1Data);
         const fortunes = fortunesData.fortunes;
-        initializeAR(fortunes, configData, modelConfigData);
+        initializeAR(fortunes, configData, state1Data);
       })
       .catch(error => console.error('Error loading data:', error));
     });
 
-    function initializeAR(fortunes, config, modelConfig) {
+    function initializeAR(fortunes, config, state1) {
       const arScene = document.getElementById('ar-scene');
       const exampleTarget = document.querySelector("#example-target");
 
@@ -75,7 +75,7 @@
       minecraftChestAnimate.style.display = "none";
       minecraftChest.classList.add("shaking");
       minecraftChestAnimate.setAttribute("visible", "false");
-      const modelSrc = modelConfig.modelSrc;
+      const modelSrc = state1.modelSrc;
       minecraftChest.setAttribute("src", `${modelSrc}`);
 
       let isTargetFound = false;
