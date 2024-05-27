@@ -29,7 +29,7 @@
   <a-scene id="ar-scene" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
     <a-assets>
       <a-asset-item id="minecraft_chest" src=""></a-asset-item>
-      <a-asset-item id="minecraft_chest_animate" src=""></a-asset-item>
+      <a-asset-item id="minecraft_chest_animate" src="./static/3D-file/glb/untitled10.glb"></a-asset-item>
     </a-assets>
 
     <a-entity id="example-target" mindar-image-target="targetIndex: 0">
@@ -45,21 +45,19 @@
       Promise.all([
         fetch('./static/data/fortunes.json').then(response => response.json()),
         fetch('./static/data/config.json').then(response => response.json()),
-        fetch('./static/data/model/state1.json').then(response => response.json()),
-        fetch('./static/data/model/state2.json').then(response => response.json())
+        fetch('./static/data/model/state1.json').then(response => response.json())
       ])
-      .then(([fortunesData, configData, state1Data, state2Data]) => {
+      .then(([fortunesData, configData, state1Data]) => {
         console.log("Fortunes Data:", fortunesData);
         console.log("Config Data:", configData);
         console.log("Model Config Data:", state1Data);
-        console.log("Model Config Data:", state2Data);
         const fortunes = fortunesData.fortunes;
-        initializeAR(fortunes, configData, state2Data);
+        initializeAR(fortunes, configData, state1Data);
       })
       .catch(error => console.error('Error loading data:', error));
     });
 
-    function initializeAR(fortunes, config, state1, state2) {
+    function initializeAR(fortunes, config, state1) {
       const arScene = document.getElementById('ar-scene');
       const exampleTarget = document.querySelector("#example-target");
 
@@ -78,9 +76,7 @@
       minecraftChest.classList.add("shaking");
       minecraftChestAnimate.setAttribute("visible", "false");
       const modelSrc = state1.modelSrc;
-      const modelSrc2 = state2.modelSrc;
       minecraftChest.setAttribute("src", `${modelSrc}`);
-      minecraftChestAnimate.setAttribute("src", `${modelSrc2}`);
 
       let isTargetFound = false;
 
