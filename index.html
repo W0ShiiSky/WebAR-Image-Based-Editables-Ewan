@@ -48,6 +48,9 @@
         fetch('./static/data/model_config.json').then(response => response.json())
       ])
       .then(([fortunesData, configData, modelConfigData]) => {
+        console.log("Fortunes Data:", fortunesData);
+        console.log("Config Data:", configData);
+        console.log("Model Config Data:", modelConfigData);
         const fortunes = fortunesData.fortunes;
         initializeAR(fortunes, configData, modelConfigData);
       })
