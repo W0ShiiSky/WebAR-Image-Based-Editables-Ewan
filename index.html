@@ -28,13 +28,13 @@
   <div id="fortuneSlip" class="fortune-slip"></div>
   <a-scene id="ar-scene" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
     <a-assets>
-      <a-asset-item id="minecraft_chest" src=""></a-asset-item>
-      <a-asset-item id="minecraft_chest_animate" src=""></a-asset-item>
+      <a-asset-item id="minecraft_chest" src="./static/data/model/state1.json"></a-asset-item>
+      <a-asset-item id="minecraft_chest_animate" src="./static/data/model/state2.json"></a-asset-item>
     </a-assets>
 
     <a-entity id="example-target" mindar-image-target="targetIndex: 0">
       <a-gltf-model id="minecraft_chest_model" src="#minecraft_chest" rotation="90 -90 0" position="-0.4 0 0" scale="0.005 0.005 0.005" animation-mixer visible="true"></a-gltf-model>
-      <a-gltf-model id="minecraft_chest_model_animate" src="#minecraft_chest_animate" rotation="0 0 0" position="0 0 0" scale="0.005 0.005 0.005" animation-mixer="loop: once; clip: *; timeScale: 0" visible="false"></a-gltf-model>
+      <a-gltf-model id="minecraft_chest_model_animate" src="#minecraft_chest_animate" rotation="0 -90 0" position="0 0 0" scale="0.005 0.005 0.005" animation-mixer="loop: once; clip: *; timeScale: 0" visible="false"></a-gltf-model>
     </a-entity>
 
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -44,22 +44,22 @@
     document.addEventListener("DOMContentLoaded", function () {
       Promise.all([
         fetch('./static/data/fortunes.json').then(response => response.json()),
-        fetch('./static/data/config.json').then(response => response.json()),
-        fetch('./static/data/model/state1.json').then(response => response.json()),
-        fetch('./static/data/model/state2.json').then(response => response.json())
+        fetch('./static/data/config.json').then(response => response.json())
+        // fetch('./static/data/model/state1.json').then(response => response.json()),
+        // fetch('./static/data/model/state2.json').then(response => response.json())
       ])
-      .then(([fortunesData, configData, state1Data, state2Data]) => {
+      .then(([fortunesData, configData]) => {
         console.log("Fortunes Data:", fortunesData);
         console.log("Config Data:", configData);
-        console.log("Model Config Data:", state1Data);
-        console.log("Model Config Data:", state2Data);
+        // console.log("Model Config Data:", state1Data);
+        // console.log("Model Config Data:", state2Data);
         const fortunes = fortunesData.fortunes;
-        initializeAR(fortunes, configData, state1Data, state2Data);
+        initializeAR(fortunes, configData);
       })
       .catch(error => console.error('Error loading data:', error));
     });
 
-    function initializeAR(fortunes, config, state1, state2) {
+    function initializeAR(fortunes, config) {
       const arScene = document.getElementById('ar-scene');
       const exampleTarget = document.querySelector("#example-target");
 
@@ -74,10 +74,10 @@
       const minecraftChest = document.getElementById("minecraft_chest_model");
       const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
       const fortuneSlip = document.getElementById("fortuneSlip");
-      const modelSrc = state1.modelSrc;
-      minecraftChest.setAttribute("src", `${modelSrc}`);
-      const modelSrc2 = state1.modelSrc;
-      minecraftChestAnimate.setAttribute("src", `${modelSrc2}`);
+      // const modelSrc = state1.modelSrc;
+      // minecraftChest.setAttribute("src", `${modelSrc}`);
+      // const modelSrc2 = state1.modelSrc;
+      // minecraftChestAnimate.setAttribute("src", `${modelSrc2}`);
       minecraftChestAnimate.style.display = "none";
       minecraftChest.classList.add("shaking");
       minecraftChestAnimate.setAttribute("visible", "false");
