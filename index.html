@@ -83,14 +83,14 @@
         fortuneSlip.style.opacity = "1";
       });
   
-      exampleTarget.addEventListener("targetLost", event => {
-        console.log("Target lost:");
-        isTargetFound = false;
+      // exampleTarget.addEventListener("targetLost", event => {
+      //   console.log("Target lost:");
+      //   isTargetFound = false;
 
-        // Hide fortune slip when target is lost
-        fortuneSlip.style.transform = "translate(-50%, -50%) scale(0)";
-        fortuneSlip.style.opacity = "0";
-      });
+      //   // Hide fortune slip when target is lost
+      //   fortuneSlip.style.transform = "translate(-50%, -50%) scale(0)";
+      //   fortuneSlip.style.opacity = "0";
+      // });
 
       // Dynamically adjust the position and rotation of the 3D model based on the target image's orientation
       exampleTarget.addEventListener("mindar-image-update", event => {
