@@ -78,6 +78,10 @@
       // minecraftChest.setAttribute("src", `${modelSrc}`);
       // const modelSrc2 = state1.modelSrc;
       // minecraftChestAnimate.setAttribute("src", `${modelSrc2}`);
+
+      console.log("Minecraft chest src:", minecraftChest.getAttribute("src")); // Add this line
+      console.log("Minecraft chest animate src:", minecraftChestAnimate.getAttribute("src")); // Add this line
+      
       minecraftChestAnimate.style.display = "none";
       minecraftChest.classList.add("shaking");
       minecraftChestAnimate.setAttribute("visible", "false");
