@@ -26,7 +26,7 @@
   </div>
 
   <div id="fortuneSlip" class="fortune-slip"></div>
-  <a-scene id="ar-scene" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
+  <a-scene mindar-image="imageTargetSrc: ./static/mind-file/Shinchan.mind; uiScanning: #scanning-overlay; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
     <a-assets>
       <a-asset-item id="minecraft_chest" src="./static/3D-file/glb/minecraft_chest_without_animation.glb"></a-asset-item>
       <a-asset-item id="minecraft_chest_animate" src="./static/3D-file/glb/untitled10.glb"></a-asset-item>
@@ -41,30 +41,19 @@
   </a-scene>
 
   <script>
+    // Fetching JSON file
     document.addEventListener("DOMContentLoaded", function () {
-      Promise.all([
-        fetch('./static/data/fortunes.json').then(response => response.json()),
-        fetch('./static/data/targetImage.json').then(response => response.json())
-      ])
-      .then(([fortunesData, configData]) => {
-        const fortunes = fortunesData.fortunes;
-        initializeAR(fortunes, configData);
-      })
-      .catch(error => console.error('Error loading data:', error));
+      fetch('./static/data/fortunes.json')
+        .then(response => response.json())
+        .then(data => {
+          const fortunes = data.fortunes;
+          initializeAR(fortunes);
+        })
+        .catch(error => console.error('Error loading fortunes:', error));
     });
 
-    function initializeAR(fortunes, config) {
-      const arScene = document.getElementById('ar-scene');
+    function initializeAR(fortunes) {
       const exampleTarget = document.querySelector("#example-target");
-
-      // Apply configuration to the mindar-image component
-      arScene.setAttribute('mindar-image', {
-        imageTargetSrc: targetImage.imageTargetSrc,
-        uiScanning: targetImage.uiScanning,
-        filterMinCF: targetImage.filterMinCF,
-        filterBeta: targetImage.filterBeta
-      });
-
       const minecraftChest = document.getElementById("minecraft_chest_model");
       const minecraftChestAnimate = document.getElementById("minecraft_chest_model_animate");
       const fortuneSlip = document.getElementById("fortuneSlip");
